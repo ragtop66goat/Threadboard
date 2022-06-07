@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import {useSelector} from "react-redux";
+import {Login} from "./components/Login/Login";
+import {Threadlist} from "./components/Threadlist/Threadlist";
+import {UserList} from "./components/UserList/UserList";
 
-function App() {
+function App({
+               _useSelector = useSelector,
+               _Login = Login,
+               _UserList = UserList,
+               _Threadlist = Threadlist,
+             }) {
+
+  const currentUser = _useSelector((state) => state.currentUser);
+
+  if (!currentUser) {
+    return (
+      <div className="d-flex flex-column align-items-center mt-3">
+        <_Login/>
+      </div>
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={"mt-3 d-flex justify-content-between"}>
+      <_Threadlist/>
+      <_UserList/>
     </div>
-  );
+  )
 }
 
 export default App;
