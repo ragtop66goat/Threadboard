@@ -10,7 +10,8 @@ test('should render a div and button for each user', () => {
         {username: 'user', id: '1'},
         {username: 'user', id: '2'},
         {username: 'user', id: '3'}
-      ]
+      ],
+      currentUser: {username: 'user1'}
     })
   const dispatch = () => {
   }
@@ -22,7 +23,8 @@ test('should render a div and button for each user', () => {
 
 test('should dispatch ON_SET_SELECTED_USER with corresponding user when Message button is clicked', () => {
   const _userSelector = (fn) => fn({
-    userList: [{username: 'user2', id: '2'}]
+    userList: [{username: 'user2', id: '2'}],
+    currentUser: {username: 'Vinny'}
   })
 
   const dispatch = jest.fn()

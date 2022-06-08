@@ -11,6 +11,6 @@ test('should display the date, from, and message', () => {
   render(<Message message={message}/>)
 
   expect(screen.getByText("2022-02-02")).toBeInTheDocument()
-  expect(screen.getByText("From: user1")).toBeInTheDocument()
+  expect(screen.getByText("user1")).toBeInTheDocument()
   expect(screen.getByText("test")).toBeInTheDocument()
 })
