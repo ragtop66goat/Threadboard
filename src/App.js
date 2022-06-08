@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {Login} from "./components/Login/Login";
-import {Threadlist} from "./components/Threadlist/Threadlist";
+import {ThreadList} from "./components/ThreadList/ThreadList";
 import {UserList} from "./components/UserList/UserList";
 import {MessageList} from "./components/MessageList/MessageList";
 import {MessageInput} from "./components/MessageInput/MessageInput";
@@ -11,7 +11,7 @@ function App({
                _UserList = UserList,
                _MessageInput = MessageInput,
                _MessageList = MessageList,
-               _Threadlist = Threadlist,
+               _ThreadList = ThreadList,
              }) {
 
   const currentUser = _useSelector((state) => state.currentUser);
@@ -35,8 +35,8 @@ function App({
       <div className={"m-5"}>
         <_MessageList/>
       </div>
-      <div className={"flex-grow-1 m-3"}>
-        <_Threadlist/>
+      <div className={"m-3 flex-grow-1"}>
+        <_ThreadList/>
       </div>
       <div className={"m-5"}>
         <_UserList/>

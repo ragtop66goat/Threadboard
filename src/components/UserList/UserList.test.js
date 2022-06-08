@@ -3,7 +3,7 @@ import {UserList} from "./UserList";
 import userEvent from "@testing-library/user-event";
 import {ON_SET_SELECTED_USER} from "../../modules/threads";
 
-test('should render a div and button for each user', () => {
+test('should render a div and button for each user and a logout button', () => {
   const _useSelector = (fn) => fn(
     {
       userList: [
@@ -20,6 +20,22 @@ test('should render a div and button for each user', () => {
   expect(screen.getAllByText("user")).toHaveLength(3)
   expect(screen.getAllByText("Message")).toHaveLength(3)
 })
+
+test('should render a Message and  Logout button', () => {
+  const _useSelector = (fn) => fn(
+    {
+      userList: [{username: 'user', id: '1'}],
+      currentUser: {username: 'user1'}
+    })
+  const dispatch = () => {
+  }
+
+  render(<UserList _useSelector={_useSelector} _useDispatch={dispatch}/>)
+  expect(screen.getByText("Logout").tagName).toBe("BUTTON")
+  expect(screen.getByText("Message").tagName).toBe("BUTTON")
+})
+
+
 
 test('should dispatch ON_SET_SELECTED_USER with corresponding user when Message button is clicked', () => {
   const _userSelector = (fn) => fn({
@@ -47,6 +63,6 @@ test('should render an element with currentUser and with "Users"', () => {
 
   render(<UserList _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
 
-  expect(screen.getByText('Trunks')).toBeInTheDocument()
   expect(screen.getByText('Users')).toBeInTheDocument()
+  expect(screen.getByText('Trunks')).toBeInTheDocument()
 })

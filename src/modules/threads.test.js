@@ -21,7 +21,7 @@ test('should init to correct state', () => {
     passwordIn: '',
     id: '',
     userList:[],
-    userThreads: [],
+    threads: [],
     messageList: [],
     privMessage: '',
   })

@@ -18,7 +18,7 @@ const initState = {
   passwordIn: '',
   id: '',
   userList: [],
-  userThreads: [],
+  threads: [],
   messageList: [],
   privMessage: '',
 }

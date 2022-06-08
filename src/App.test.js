@@ -35,7 +35,7 @@ test('should render UserList component when currentUser is not null', () => {
     return <>UserList</>
   }
 
-  render(<App _useSelector={_useSelector} _UserList={_UserList} _Threadlist={_threadList} _MessageList={_messageList}/>)
+  render(<App _useSelector={_useSelector} _UserList={_UserList} _ThreadList={_threadList} _MessageList={_messageList}/>)
 
   expect(screen.getByText("UserList")).toBeInTheDocument()
 
