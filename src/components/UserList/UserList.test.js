@@ -37,3 +37,14 @@ test('should dispatch ON_SET_SELECTED_USER with corresponding user when Message 
     value: "user2"
   })
 })
+
+test('should render an element with currentUser and with "Users"', () => {
+  const _useSelector = (fn) => fn({currentUser: {username: "Trunks"},
+  userList:[]})
+  const dispatch = () => {}
+
+  render(<UserList _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
+
+  expect(screen.getByText('Trunks')).toBeInTheDocument()
+  expect(screen.getByText('Users')).toBeInTheDocument()
+})

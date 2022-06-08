@@ -31,14 +31,14 @@ function App({
   }
 
   return (
-    <div className={"mt-3 d-flex justify-content-between"}>
-      <div>
+    <div className={"d-flex"}>
+      <div className={"m-5"}>
         <_MessageList/>
       </div>
-      <div>
+      <div className={"flex-grow-1 m-3"}>
         <_Threadlist/>
       </div>
-      <div>
+      <div className={"m-5"}>
         <_UserList/>
       </div>
     </div>

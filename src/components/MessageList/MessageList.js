@@ -10,7 +10,7 @@ export function MessageList( {_useSelector = useSelector, _Message = Message}) {
     <h4>Messages</h4>
     {
       usersInbox.map((message, idx) => {
-        return <div key={idx}>
+        return <div className={"mt-4"} key={idx}>
           <_Message message={message}/>
         </div>
       })
