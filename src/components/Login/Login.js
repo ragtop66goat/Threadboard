@@ -32,7 +32,8 @@ export function Login({_useSelector = useSelector, _useDispatch = useDispatch, _
       <input onChange={onPasswordChange} value={passwordIn} className={'mt-3'} type={'text'} placeholder={'Password'}/>
       <Button onClick={() => dispatch({type: ON_LOGIN})} className={'mt-4'} >Login</Button>
       <Button onClick={onCreateAccount} className={'mt-4'} >Create Account</Button>
+      <div className={'w-75 mt-2 text-danger'}>{loginError}</div>
     </div>
-    <div className={'w-75 mt-2 text-danger'}>{loginError}</div>
+
   </>
 }

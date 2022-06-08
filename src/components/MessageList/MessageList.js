@@ -2,7 +2,7 @@ import {useSelector} from "react-redux";
 import {Message} from "../Message/Message";
 
 export function MessageList( {_useSelector = useSelector, _Message = Message}) {
-  const user = _useSelector((state) => state.currentUser)
+  const user = _useSelector((state) => state.currentUser.username)
   const messageList = _useSelector((state) => state.messageList)
   const usersInbox = messageList.filter(message => message.recipient === user)
 

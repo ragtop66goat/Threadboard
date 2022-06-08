@@ -7,6 +7,8 @@ export const ON_LOGOUT = 'threads/ON_LOGOUT'
 export const ON_DELETE_THREAD = 'threads/ON_DELETE_THREAD'
 export const ON_SET_SELECTED_USER = 'threads/ON_SET_SELECTED_USER'
 export const ON_SET_ID = 'threads/ON_SET_ID'
+export const ON_SEND_MESSAGE = 'threads/ON_SEND_MESSAGE'
+export const ON_SET_PRIV_MESSAGE = 'threads/ON_SET_PRIV_MESSAGE'
 
 const initState = {
   currentUser: null,
@@ -18,6 +20,7 @@ const initState = {
   userList: [],
   userThreads: [],
   messageList: [],
+  privMessage: '',
 }
 
 export function reducer(state = initState, action) {
@@ -77,12 +80,36 @@ export function reducer(state = initState, action) {
         ...state,
         id: action.value
       }
-
+    case ON_SET_SELECTED_USER:
+      return {
+        ...state,
+        selectedUser: action.value
+      }
+    case ON_SET_PRIV_MESSAGE:
+      return {
+        ...state,
+        privMessage: action.value
+      }
     case ON_LOGOUT:
       return {
         ...state,
         currentUser: null,
         loginError: null,
+      }
+    case ON_SEND_MESSAGE:
+      return {
+        ...state,
+        messageList: [
+          ...state.messageList,
+          {
+            date: action.value,
+            recipient: state.selectedUser,
+            message: state.privMessage,
+            owner: state.currentUser
+          }
+        ],
+        selectedUser: null,
+        privMessage: ''
       }
 
     case ON_CREATE_THREAD:

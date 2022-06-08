@@ -5,9 +5,9 @@ import {ON_LOGOUT} from "../../modules/threads";
 export function Threadlist() {
   const dispatch = useDispatch()
   return <div>
-    <div>
-    <Button onClick={()=>dispatch({type: ON_LOGOUT})}>Logout</Button>
-    <h1>Threadlist</h1>
+    <div className={"d-flex"}>
+      <h1>Threadlist</h1>
+    <Button className={"ml-3"} onClick={()=>dispatch({type: ON_LOGOUT})}>Logout</Button>
     </div>
   </div>
 }

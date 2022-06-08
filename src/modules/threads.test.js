@@ -7,7 +7,7 @@ import {
   ON_LOGOUT,
   ON_REG,
   reducer,
-  ON_SET_ID
+  ON_SET_ID, ON_SEND_MESSAGE, ON_SET_SELECTED_USER, ON_SET_PRIV_MESSAGE
 } from "./threads";
 
 
@@ -23,6 +23,7 @@ test('should init to correct state', () => {
     userList:[],
     userThreads: [],
     messageList: [],
+    privMessage: '',
   })
 })
 
@@ -52,6 +53,29 @@ test('should set id to "3"', () => {
   expect(state).toStrictEqual({
     ...state,
     id: "3"
+  })
+})
+
+test('should set selected user and privMessage to empty', () => {
+  const initState = reducer()
+
+  const state = reducer(initState, {type: ON_SET_SELECTED_USER, value: "Crocodile"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    selectedUser: "Crocodile",
+    privMessage: ''
+  })
+})
+
+test('should set privMessage to "test"', () => {
+  const initState = reducer()
+
+  const state = reducer(initState, {type: ON_SET_PRIV_MESSAGE, value: "test"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    privMessage: "test"
   })
 })
 
@@ -171,6 +195,31 @@ test('should create a thread', () => {
   })
 
 
+})
+
+test('should create a message with date, owner, recipient, and message', () => {
+  const initState = reducer({
+    selectedUser: "user2",
+    currentUser: "user1",
+    privMessage: 'test',
+    messageList: []
+  })
+
+  const state = reducer(initState, {type: ON_SEND_MESSAGE, value: "2022-02-02"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    messageList: [
+      {
+        date: "2022-02-02",
+        recipient: "user2",
+        owner: "user1",
+        message: "test"
+      }
+    ],
+    selectedUser: null,
+    privMessage: ""
+  })
 })
 
 test('Should delete a thread', () => {
