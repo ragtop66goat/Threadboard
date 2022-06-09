@@ -4,6 +4,7 @@ import {ThreadList} from "./components/ThreadList/ThreadList";
 import {UserList} from "./components/UserList/UserList";
 import {MessageList} from "./components/MessageList/MessageList";
 import {MessageInput} from "./components/MessageInput/MessageInput";
+import {ThreadInput} from "./components/ThreadInput/ThreadInput";
 
 function App({
                _useSelector = useSelector,
@@ -11,6 +12,7 @@ function App({
                _UserList = UserList,
                _MessageInput = MessageInput,
                _MessageList = MessageList,
+               _ThreadInput = ThreadInput,
                _ThreadList = ThreadList,
              }) {
 
@@ -32,13 +34,14 @@ function App({
 
   return (
     <div className={"d-flex"}>
-      <div className={"m-5"}>
+      <div className={"m-5 bg-light p-3"}>
         <_MessageList/>
       </div>
       <div className={"m-3 flex-grow-1"}>
+        <_ThreadInput/>
         <_ThreadList/>
       </div>
-      <div className={"m-5"}>
+      <div className={"m-5 bg-light p-3"}>
         <_UserList/>
       </div>
     </div>

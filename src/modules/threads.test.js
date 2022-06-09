@@ -7,7 +7,7 @@ import {
   ON_LOGOUT,
   ON_REG,
   reducer,
-  ON_SET_ID, ON_SEND_MESSAGE, ON_SET_SELECTED_USER, ON_SET_PRIV_MESSAGE
+  ON_SET_ID, ON_SEND_MESSAGE, ON_SET_SELECTED_USER, ON_SET_PRIV_MESSAGE, ON_SET_THREAD_TITLE, ON_SET_THREAD_CONTENT
 } from "./threads";
 
 
@@ -22,6 +22,8 @@ test('should init to correct state', () => {
     id: '',
     userList:[],
     threads: [],
+    threadTitle: '',
+    threadContent: '',
     messageList: [],
     privMessage: '',
   })
@@ -76,6 +78,28 @@ test('should set privMessage to "test"', () => {
   expect(state).toStrictEqual({
     ...state,
     privMessage: "test"
+  })
+})
+
+test('should set threadTitle to "Title"', () => {
+  const initState = reducer()
+
+  const state = reducer(initState, {type: ON_SET_THREAD_TITLE, value: "Title"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    threadTitle: 'Title'
+  })
+})
+
+test('should set threadContent to "Content"', () => {
+  const initState = reducer()
+
+  const state = reducer(initState, {type: ON_SET_THREAD_CONTENT, value: "Content"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    threadContent: 'Content'
   })
 })
 
@@ -175,23 +199,27 @@ test('should logout current user', () => {
 
 //---------- EVENT tests --------------
 
-test('should create a thread', () => {
+test('should create a thread and threadTitle and threadContent turned to empty strings', () => {
   const initState = reducer({
     currentUser: {username:'user'},
-    userThreads: []
+    threads: [],
+    threadTitle: 'title',
+    threadContent: 'content'
   })
 
   const state = reducer(initState, {type: ON_CREATE_THREAD,
-    value:{id:'001',date:'2020-02-02', title:'title', content:'content'}})
+    value:{id:'001',date:'2020-02-02'}})
   expect(state).toStrictEqual({
     ...state,
-    userThreads:[{
+    threads:[{
       id:'001',
-      createdBy: 'user',
+      owner: 'user',
       date:'2020-02-02',
       title:'title',
       content:'content',
-    }]
+    }],
+    threadTitle: '',
+    threadContent: ''
   })
 
 
@@ -225,16 +253,16 @@ test('should create a message with date, owner, recipient, and message', () => {
 test('Should delete a thread', () => {
   const initState = reducer({
     currentUser: {username:'user'},
-    userThreads:[{
+    threads:[{
       id:'001',
-      createdBy: 'user',
+      owner: 'user',
       date:'2020-02-02',
       title:'title',
       content:'content',
     },
       {
         id:'002',
-        createdBy: 'user',
+        owner: 'user',
         date:'2020-02-02',
         title:'title2',
         content:'content2',
@@ -245,9 +273,9 @@ test('Should delete a thread', () => {
 
   expect(state).toStrictEqual({
     ...state,
-    userThreads:[{
+    threads:[{
       id:'001',
-      createdBy: 'user',
+      owner: 'user',
       date:'2020-02-02',
       title:'title',
       content:'content',

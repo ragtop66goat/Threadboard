@@ -6,9 +6,6 @@ export function ThreadList({_Thread = Thread, _useSelector = useSelector}) {
   const threads = _useSelector((state) => state.threads)
 
   return <>
-    <div className={"d-flex justify-content-center"}>
-      <h1>Threadboard</h1>
-    </div>
     <div>
       {
         threads.map((thread, idx) => {
