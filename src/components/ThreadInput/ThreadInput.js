@@ -38,8 +38,9 @@ return <>
   <div>
     <h1>Threadboard</h1>
   </div>
-  <div className={"d-flex flex-column"}>
-    <input onChange={onTitleChange} value={threadTitle} className={'mt-4'} type={'text'} placeholder={'Title'}/>
+  <div className={"d-flex flex-column shadow p-3 mb-5 bg-white rounded p-2"}>
+    <p>Post Thread?</p>
+    <input onChange={onTitleChange} value={threadTitle} type={'text'} placeholder={'Title'}/>
     <input onChange={onContentChange} value={threadContent} className={'mt-3'} type={'text'} placeholder={'content'}/>
     <button className={"btn-sm btn-success w-25 mt-2"} onClick={submitThread}>Submit</button>
   </div>

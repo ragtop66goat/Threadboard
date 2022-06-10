@@ -31,11 +31,14 @@ test('should render UserList component when currentUser is not null', () => {
   const _useSelector = (fn) => fn({currentUser:"Gohan"})
   const _threadList = () => {}
   const _messageList = () => {}
+  const _messageInput = () => {}
+  const _threadInput = () => {}
   const _UserList = () => {
     return <>UserList</>
   }
 
-  render(<App _useSelector={_useSelector} _UserList={_UserList} _ThreadList={_threadList} _MessageList={_messageList}/>)
+  render(<App _useSelector={_useSelector} _UserList={_UserList} _ThreadList={_threadList}
+              _MessageList={_messageList} _MessageInput={_messageInput} _ThreadInput={_threadInput}/>)
 
   expect(screen.getByText("UserList")).toBeInTheDocument()
 

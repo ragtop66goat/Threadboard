@@ -17,11 +17,20 @@ export function MessageInput({_useSelector = useSelector, _useDispatch = useDisp
     dispatch({type: ON_SET_PRIV_MESSAGE, value: e.target.value})
   }
 
-  return <>
+  return <div className={"d-flex justify-content-center flex-column"}>
     <h1>Private Message</h1>
-    <h4>To: {selectedUser}</h4>
-    <input type={"text"} onChange={onMessageChange} value={privMessage} placeholder={'How you doin?'}/>
-    <Button onClick={sendMessage}>Send</Button>
-    <Button onClick={() => dispatch({type: ON_SET_SELECTED_USER, value: null})}>Cancel</Button>
-  </>
+    <div className={"card shadow p-3 mb-5 bg-white rounded"}>
+      <div className={"card-header"}>
+        <h4>To: {selectedUser}</h4>
+      </div>
+
+    <div className={"card-body"}>
+      <input type={"text"} onChange={onMessageChange} value={privMessage} placeholder={'How you doin?'}/>
+    </div>
+    <div className={"d-flex justify-content-evenly"}>
+      <Button onClick={sendMessage}>Send</Button>
+      <Button onClick={() => dispatch({type: ON_SET_SELECTED_USER, value: null})}>Cancel</Button>
+    </div>
+  </div>
+  </div>
 }

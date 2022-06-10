@@ -56,13 +56,13 @@ test('should dispatch ON_SET_SELECTED_USER with corresponding user when Message 
   })
 })
 
-test('should render an element with currentUser and with "Users"', () => {
+test('should render an element with currentUser and with "Online:"', () => {
   const _useSelector = (fn) => fn({currentUser: {username: "Trunks"},
   userList:[]})
   const dispatch = () => {}
 
   render(<UserList _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
 
-  expect(screen.getByText('Users')).toBeInTheDocument()
+  expect(screen.getByText('Online:')).toBeInTheDocument()
   expect(screen.getByText('Trunks')).toBeInTheDocument()
 })

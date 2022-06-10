@@ -5,6 +5,7 @@ import {UserList} from "./components/UserList/UserList";
 import {MessageList} from "./components/MessageList/MessageList";
 import {MessageInput} from "./components/MessageInput/MessageInput";
 import {ThreadInput} from "./components/ThreadInput/ThreadInput";
+import {PostInput} from "./components/PostInput/PostInput";
 
 function App({
                _useSelector = useSelector,
@@ -14,10 +15,12 @@ function App({
                _MessageList = MessageList,
                _ThreadInput = ThreadInput,
                _ThreadList = ThreadList,
+               _Post = PostInput
              }) {
 
   const currentUser = _useSelector((state) => state.currentUser);
   const selectedUser = _useSelector((state) => state.selectedUser);
+  const addPost = _useSelector((state) => state.addPost)
 
 
   if (!currentUser) {
@@ -29,7 +32,20 @@ function App({
   }
 
   if (selectedUser) {
-    return <_MessageInput/>
+    return (
+      <div className={"d-flex justify-content-center mt-4"}>
+        <_MessageInput/>
+      </div>
+    )
+
+  }
+
+  if(addPost) {
+    return (
+      <div className={"d-flex justify-content-center mt-4"}>
+        <_Post/>
+      </div>
+    )
   }
 
   return (

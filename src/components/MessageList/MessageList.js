@@ -6,7 +6,7 @@ export function MessageList( {_useSelector = useSelector, _Message = Message}) {
   const messageList = _useSelector((state) => state.messageList)
   const usersInbox = messageList.filter(message => message.recipient === user)
 
-  return <div>
+  return <div >
     <h4>Messages</h4>
     {
       usersInbox.map((message, idx) => {
