@@ -50,6 +50,37 @@ test('should render "Edit and Delete buttons"', () => {
 
 })
 
+test('should only render elements with "User1", "2020-02-02", "Test Title" and "Test content"', () => {
+
+  const _useSelector = ((fn) => fn({
+    currentUser: {username: "Doggo"},
+    postList: []
+  }))
+  const dispatch = () => {
+  }
+  const _Post = () => {
+  }
+  const thread = {
+    owner: "User1",
+    date: "2020-02-02",
+    title: "Test Title",
+    content: "Test content"
+  }
+
+  render(<Thread thread={thread} _useDispatch={dispatch} _useSelector={_useSelector} _Post={_Post}/>)
+
+  const deleteBtn = screen.queryByText("Delete")
+  const editBtn = screen.queryByText("Edit")
+
+  expect(screen.getByText("User1")).toBeInTheDocument()
+  expect(screen.getByText("2020-02-02")).toBeInTheDocument()
+  expect(screen.getByText("Test Title")).toBeInTheDocument()
+  expect(screen.getByText("Test content")).toBeInTheDocument()
+
+  expect(deleteBtn).not.toBeInTheDocument()
+  expect(editBtn).not.toBeInTheDocument()
+})
+
 test('should render Thread with Post"', () => {
   const _useSelector = ((fn) => fn({
     currentUser: {username: "User1"},

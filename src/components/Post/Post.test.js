@@ -32,7 +32,12 @@ test('should render post with only post content', () => {
 
   render(<Post post={post} _useSelector={_useSelector} _useDispatch={dispatch}/>)
 
+  const deleteBtn = screen.queryByText("Delete")
+  const editBtn = screen.queryByText("Edit")
+
   expect(screen.getByText("this")).toBeInTheDocument()
+  expect(deleteBtn).not.toBeInTheDocument()
+  expect(editBtn).not.toBeInTheDocument()
 
 })
 
