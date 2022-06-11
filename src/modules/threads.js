@@ -42,6 +42,11 @@ const initState = {
 export function reducer(state = initState, action) {
   switch (action?.type) {
     case ON_REG:
+      if(state.usernameIn.trim().length < 1 || state.passwordIn.trim().length < 1)
+        return {
+        ...state,
+          loginError: "Please fill in all fields"
+        }
       const foundUser = state.userList.find(user => user.username === state.usernameIn)
       if (foundUser)
         return {
@@ -65,6 +70,11 @@ export function reducer(state = initState, action) {
       }
 
     case ON_LOGIN:
+      if(state.usernameIn.trim().length < 1 || state.passwordIn.trim().length < 1)
+        return {
+          ...state,
+          loginError: "Please fill in all fields"
+        }
       const registeredUser = state.userList.find(
         user => user.username === state.usernameIn &&
           user.password === state.passwordIn)
@@ -79,7 +89,7 @@ export function reducer(state = initState, action) {
       if (!matchedUser)
         return {
           ...state,
-          loginError: 'Username not found'
+          loginError: 'Username not found. Create account?'
         }
       return {
         ...state,

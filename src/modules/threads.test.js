@@ -139,6 +139,22 @@ test('ON_SET_ADD_POST should set post to true and postToId to "23"', () => {
 
 //--------- ON_REG tests --------------------
 
+test('ON_REG should set loginError to "Please fill in all fields"', () => {
+  const initState = reducer({
+    usernameIn:' ',
+    passwordIn: ' '
+  })
+
+  const state = reducer(initState, {type: ON_REG})
+
+  expect(state).toStrictEqual({
+    ...state,
+    loginError: "Please fill in all fields",
+    passwordIn: ' ',
+    usernameIn: ' '
+  })
+})
+
 test('ON_REG should set loginError to "User already exists" when registering an existing user',() => {
   const initState = reducer({
     usernameIn: "user",
@@ -172,6 +188,22 @@ test('should register a new user', ()=> {
 
 //  ----- ON_LOGIN tests -------------
 
+test('ON_LOGIN should set loginError to "Please fill in all fields"', () => {
+  const initState = reducer({
+    usernameIn:' ',
+    passwordIn: ' '
+  })
+
+  const state = reducer(initState, {type: ON_LOGIN})
+
+  expect(state).toStrictEqual({
+    ...state,
+    loginError: "Please fill in all fields",
+    passwordIn: ' ',
+    usernameIn: ' '
+  })
+})
+
 test('ON_LOGIN should login user and set currentUser state to that user', () => {
   const initState = reducer({
     usernameIn: "user",
@@ -190,7 +222,7 @@ test('ON_LOGIN should login user and set currentUser state to that user', () => 
 
 })
 
-test('ON_LOGIN should set login error to "Username not found"', () => {
+test('ON_LOGIN should set login error to "Username not found. Create account?"', () => {
   const initState = reducer({
     usernameIn: "user",
     passwordIn: "pass",
@@ -199,7 +231,7 @@ test('ON_LOGIN should set login error to "Username not found"', () => {
   const state = reducer(initState, {type:ON_LOGIN})
   expect(state).toStrictEqual({
     ...state,
-    loginError:'Username not found'
+    loginError:'Username not found. Create account?'
   })
 })
 
