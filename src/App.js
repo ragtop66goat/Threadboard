@@ -15,7 +15,7 @@ function App({
                _MessageList = MessageList,
                _ThreadInput = ThreadInput,
                _ThreadList = ThreadList,
-               _Post = PostInput
+               _PostInput = PostInput
              }) {
 
   const currentUser = _useSelector((state) => state.currentUser);
@@ -43,7 +43,7 @@ function App({
   if(addPost) {
     return (
       <div className={"d-flex justify-content-center mt-4"}>
-        <_Post/>
+        <_PostInput/>
       </div>
     )
   }

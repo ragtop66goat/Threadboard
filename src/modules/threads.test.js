@@ -13,7 +13,7 @@ import {
   ON_SET_PRIV_MESSAGE,
   ON_SET_THREAD_TITLE,
   ON_SET_THREAD_CONTENT,
-  ON_EDIT_THREAD, ON_ADD_POST, ON_SET_ADD_POST
+  ON_EDIT_THREAD, ON_SUBMIT_POST, ON_SET_ADD_POST, ON_DELETE_POST
 } from "./threads";
 
 
@@ -392,20 +392,22 @@ test('ON_DELETE_THREAD should delete a thread', () => {
   })
 })
 
-test('ON_ADD_POST should add a post to postList', () => {
+test('ON_Submit_POST should add a post to postList', () => {
   const initState = reducer({
     currentUser: {username: "Kai"},
     postContent: "P",
-    postToId: "007"
+    postToId: "007",
+    postList:[]
   })
 
-  const state = reducer(initState, {type: ON_ADD_POST, value: {date:"2020-02-02"}})
+  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date:"2020-02-02", id: "9000"}})
 
   expect(state).toStrictEqual({
     ...state,
     postList: [
       {
-        id: "007",
+        id: "9000",
+        threadId: "007",
         owner: "Kai",
         date: "2020-02-02",
         content: "P"
@@ -413,5 +415,82 @@ test('ON_ADD_POST should add a post to postList', () => {
     ],
     postContent: '',
     addPost: false,
+    id: null,
+    postToId: null
+  })
+})
+
+test('ON_SUBMIT_POST should update an existing post', () => {
+  const initState = reducer({
+    id: "13",
+    currentUser: {username: "Bulma"},
+    postContent: "Old reply updated",
+    postList: [
+      {
+        id: "13",
+        threadId: "34",
+        owner: "Bulma",
+        date: "2020-02-02",
+        content: "Old reply"
+      },
+      {
+        id: "17",
+        threadId: "34",
+        owner: "Endeavor",
+        date: "2020-02-02",
+        content: "Endeavor reply"
+      }
+    ]
+
+  })
+
+  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date: "2022-02-02", id:"13"}})
+
+  expect(state).toStrictEqual({
+    postList:[
+      {
+        id: "13",
+        threadId: "34",
+        owner: "Bulma",
+        date: "2022-02-02",
+        content: "Old reply updated"
+      },
+      {
+        id: "17",
+        threadId: "34",
+        owner: "Endeavor",
+        date: "2020-02-02",
+        content: "Endeavor reply"
+      }
+    ],
+    id: null,
+    addPost: false,
+    postContent: '',
+    postToId: null,
+    currentUser: {username: "Bulma"}
+  })
+})
+
+test('ON_DELETE_POST should delete the correct post', () => {
+  const initState = reducer({
+    postList: [
+      {
+        id: "56"
+      },
+      {
+        id: "09"
+      }
+    ]
+  })
+
+  const state = reducer(initState, {type: ON_DELETE_POST, value: "56"})
+
+  expect(state).toStrictEqual({
+    ...state,
+    postList: [
+      {
+        id: "09"
+      }
+    ]
   })
 })

@@ -7,6 +7,7 @@ export const ON_SEND_MESSAGE = 'threads/ON_SEND_MESSAGE'
 export const ON_EDIT_THREAD = 'threads/ON_EDIT_THREAD'
 export const ON_SUBMIT_POST = 'threads/ON_ADD_POST'
 export const ON_EDIT_POST = 'threads/ON_EDIT_POST'
+export const ON_DELETE_POST = 'threads/ON_DELETE_POST'
 export const ON_SET_SELECTED_USER = 'threads/ON_SET_SELECTED_USER'
 export const ON_SET_ID = 'threads/ON_SET_ID'
 export const ON_SET_USERNAME_IN = 'threads/ON_SET_USERNAME_IN'
@@ -22,7 +23,6 @@ const initState = {
   currentUser: null,
   selectedUser: null,
   selectedThread: null,
-  selectedPost: null,
   addPost: false,
   postToId: null,
   loginError: null,
@@ -209,12 +209,14 @@ export function reducer(state = initState, action) {
 
       }
     case ON_SUBMIT_POST:
+      const updatePost = state.postList.find(post => post.id === state.id)
+      if(!updatePost)
       return {
         ...state,
         postList: [
           ...state.postList,
           {
-            id: state.id,
+            id: action.value.id,
             threadId: state.postToId,
             owner: state.currentUser.username,
             date: action.value.date,
@@ -223,17 +225,45 @@ export function reducer(state = initState, action) {
         ],
         postContent: '',
         addPost: false,
-        id: ''
+        id: null,
+        postToId: null
 
+      }
+      return {
+        ...state,
+        postList:
+          state.postList.map((post) => {
+            if(post.id === state.id){
+              return {
+                id: state.id,
+                threadId: post.threadId,
+                owner: state.currentUser.username,
+                date: action.value.date,
+                content: state.postContent
+              }
+            }
+            return post
+          }),
+        postContent: '',
+        addPost: false,
+        id: null,
+        postToId: null
       }
     case ON_EDIT_POST:
       const postEdit = state.postList.find(post => post.id === action.value)
       return {
         ...state,
-        selectedPost: true,
+        addPost: true,
         postContent: postEdit.content,
-        id: postEdit.id
+        id: postEdit.id,
+        postToId: postEdit.threadId
 
+      }
+    case ON_DELETE_POST:
+      return {
+        ...state,
+        postList:
+        state.postList.filter(post => post.id !== action.value)
       }
     default:
       return {

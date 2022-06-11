@@ -3,7 +3,7 @@ import {UserList} from "./UserList";
 import userEvent from "@testing-library/user-event";
 import {ON_SET_SELECTED_USER} from "../../modules/threads";
 
-test('should render a div and button for each user and a logout button', () => {
+test('should render a div and button for each user', () => {
   const _useSelector = (fn) => fn(
     {
       userList: [

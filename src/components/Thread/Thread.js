@@ -56,7 +56,7 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
       <div>
         {
           foundPosts.map((post, idx) => {
-            return <div>
+            return <div key={idx}>
               <_Post post={post}/>
             </div>
           })

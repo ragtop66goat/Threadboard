@@ -3,7 +3,7 @@ import {v4 as uuidv4} from "uuid";
 import {Card} from "react-bootstrap";
 import {ON_SUBMIT_POST, ON_SET_POST_CONTENT} from "../../modules/threads";
 
-export function PostInput({_useSelector = useSelector, _useDispatch = useDispatch}) {
+export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDispatch = useDispatch}) {
 
   const threads = _useSelector((state) => state.threads)
   const postToId = _useSelector((state) => state.postToId)
@@ -19,12 +19,12 @@ export function PostInput({_useSelector = useSelector, _useDispatch = useDispatc
   function onSubmitPost() {
     let id;
     if(!postId){
-      id = uuidv4()
+      id = _uuidv4()
     } else {
       id = postId
     }
-    const date = new Date().toDateString().substring(0, 10)
-    dispatch({type: ON_SUBMIT_POST, value: date, id})
+    const date = new Date().toISOString().substring(0, 10)
+    dispatch({type: ON_SUBMIT_POST, value: {date, id}})
   }
   return <div>
     <Card>
