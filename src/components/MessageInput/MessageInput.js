@@ -4,12 +4,13 @@ import {Button} from "react-bootstrap";
 
 export function MessageInput({_useSelector = useSelector, _useDispatch = useDispatch}) {
 
+  // selectedUser set in userList with "Message" btn
   const selectedUser = _useSelector((state) => state.selectedUser)
   const privMessage = _useSelector((state) => state.privMessage)
   const dispatch = _useDispatch()
 
   function sendMessage() {
-    const date = new Date().toISOString().substring(0, 10)
+    const date = new Date().toString().substring(0, 15)
     dispatch({type: ON_SEND_MESSAGE, value: date})
   }
 

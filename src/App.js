@@ -49,17 +49,19 @@ function App({
   }
 
   return (
+    <div className={"w-75"} style={{marginLeft: "12%"}}>
     <div className={"d-flex"}>
-      <div className={"m-5 bg-light p-3"}>
+      <div className={"bg-light p-3 pt-5"}>
         <_MessageList/>
       </div>
       <div className={"m-3 flex-grow-1"}>
         <_ThreadInput/>
         <_ThreadList/>
       </div>
-      <div className={"m-5 bg-light p-3"}>
+      <div className={"bg-light p-5"}>
         <_UserList/>
       </div>
+    </div>
     </div>
   )
 }

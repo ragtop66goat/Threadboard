@@ -3,7 +3,7 @@ import {MessageInput} from "./MessageInput";
 import userEvent from "@testing-library/user-event";
 import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_SET_SELECTED_USER} from "../../modules/threads";
 
-test('should render an element with "Private Message", "User1" and "How you doin?"', () => {
+test('should render an element with "Private Message", "User1" and placeHolder "How you doin?"', () => {
   const _useSelector = (fn) => fn({selectedUser: "User1"})
   const dispatch = () => {}
 
@@ -41,9 +41,10 @@ test('should dispatch ON_SET_PRIV_MESSAGE with "Z"', () => {
 
 
 test('should dispatch ON_SEND_MESSAGE when "Send" is clicked', () => {
+  jest.useFakeTimers()
+  jest.setSystemTime(new Date('October, 27, 1979'))
   const _useSelector = () => {}
   const dispatch = jest.fn()
-  const date = new Date().toISOString().substring(0, 10)
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
 
@@ -52,7 +53,7 @@ test('should dispatch ON_SEND_MESSAGE when "Send" is clicked', () => {
 
   expect(dispatch).toHaveBeenCalledWith({
     type: ON_SEND_MESSAGE,
-    value: date
+    value: "Sat Oct 27 1979"
   })
 
 

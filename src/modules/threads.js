@@ -171,9 +171,9 @@ export function reducer(state = initState, action) {
           threads: [
             ...state.threads,
             {
-              id: action.value.id,
+              id: state.id,
               owner: state.currentUser.username,
-              date: action.value.date,
+              date: action.value,
               title: state.threadTitle,
               content: state.threadContent,
             }
@@ -189,7 +189,7 @@ export function reducer(state = initState, action) {
             return {
               id: state.id,
               owner: state.currentUser.username,
-              date: action.value.date,
+              date: action.value,
               title: state.threadTitle,
               content: state.threadContent
             }

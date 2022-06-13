@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {MessageList} from './MessageList'
 
-test('should render message for every message in messageList', () => {
+test('should onlu render messages for currentUser/owner', () => {
   const _useSelector = (fn) => fn(
     {
       messageList:

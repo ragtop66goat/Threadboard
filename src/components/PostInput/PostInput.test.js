@@ -59,6 +59,8 @@ test('should dispatch ON_SET_POST_CONTENT with input change', () => {
 })
 
 test('should dispatch ON_SUBMIT_POST when "Post" button clicked', () => {
+  jest.useFakeTimers()
+  jest.setSystemTime(new Date('October, 27, 1979'))
   const _useSelector = ((fn) => fn(
     {
       postToId: "15",
@@ -74,7 +76,7 @@ test('should dispatch ON_SUBMIT_POST when "Post" button clicked', () => {
   userEvent.click(button)
 
   expect(dispatch).toHaveBeenCalledWith({
-    type: ON_SUBMIT_POST, value: {date: new Date().toISOString().substring(0, 10), id: "13"}
+    type: ON_SUBMIT_POST, value: {date: "Sat Oct 27 1979", id: "13"}
   })
 
 

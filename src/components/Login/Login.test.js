@@ -13,8 +13,8 @@ test('should have a Username and Password input field', () => {
 
   render(<Login _useSelector={_useSelector} _useDispatch={_useDispatch}/>)
 
-  expect(screen.getByPlaceholderText('Username')).toBeInTheDocument()
-  expect(screen.getByPlaceholderText('Password')).toBeInTheDocument()
+  expect(screen.getByPlaceholderText('Username').tagName).toBe("INPUT")
+  expect(screen.getByPlaceholderText('Password').tagName).toBe("INPUT")
 })
 
 test('should have a "Login" and "Create Account" button', () => {
@@ -29,7 +29,7 @@ test('should have a "Login" and "Create Account" button', () => {
   expect(screen.getByText('Create Account').tagName).toBe("BUTTON")
 })
 
-test('should have a div that says "Welcome to Threadboard"', () => {
+test('should have a div that says "Welcome to Threadboard" and no loginError message', () => {
   const _useSelector = () => {
   }
   const _useDispatch = () => {
@@ -37,7 +37,10 @@ test('should have a div that says "Welcome to Threadboard"', () => {
 
   render(<Login _useSelector={_useSelector} _useDispatch={_useDispatch}/>)
 
+  const errorMessage = screen.getByLabelText("error")
+
   expect(screen.getByText('Welcome to Threadboard')).toBeInTheDocument()
+  expect(errorMessage).toContainHTML('')
 })
 
 test('should show error message in login-error div', () => {
@@ -70,10 +73,10 @@ test('should dispatch ON_LOGIN when "Login" button is pressed', () => {
   })
 })
 
-test('should call onCreateAccount and dispatch ON_REG when "Create Account" is pressed', () => {
+test('should dispatch ON_REG and ON_SET_ID when "Create Account" is pressed', () => {
   const _useSelector = () => {}
   const dispatch = jest.fn()
-  const _uuidv4 = () => {}
+  const _uuidv4 = () => "5"
 
 
   render(<Login _useSelector={_useSelector} _useDispatch={() => dispatch} _uuidv4={_uuidv4}/>)
@@ -83,7 +86,8 @@ test('should call onCreateAccount and dispatch ON_REG when "Create Account" is p
   userEvent.click(button)
 
   expect(dispatch).toHaveBeenCalledWith({
-    type: ON_SET_ID
+    type: ON_SET_ID,
+    value: "5"
   })
   expect(dispatch).toHaveBeenCalledWith({
     type: ON_REG

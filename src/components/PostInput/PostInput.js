@@ -6,9 +6,11 @@ import {ON_SUBMIT_POST, ON_SET_POST_CONTENT} from "../../modules/threads";
 export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDispatch = useDispatch}) {
 
   const threads = _useSelector((state) => state.threads)
+  // brought in to link post to parent thread. Set with Post btn in Post
   const postToId = _useSelector((state) => state.postToId)
   const foundThread = threads.find((thread) => thread.id === postToId)
   const postContent = _useSelector((state) => state.postContent)
+  // brought in to decide if post is being edited
   const postId = _useSelector((state) => state.id)
   const dispatch = _useDispatch()
 
@@ -18,12 +20,13 @@ export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDis
 
   function onSubmitPost() {
     let id;
+    // creates new Id if new post
     if(!postId){
       id = _uuidv4()
     } else {
       id = postId
     }
-    const date = new Date().toISOString().substring(0, 10)
+    const date = new Date().toString().substring(0, 15)
     dispatch({type: ON_SUBMIT_POST, value: {date, id}})
   }
   return <div>

@@ -8,7 +8,7 @@ export function ThreadList({_Thread = Thread, _useSelector = useSelector}) {
   return <>
     <div>
       {
-        threads.map((thread, idx) => {
+        threads.reverse().map((thread, idx) => {
           return <div className={"mt-4"} key={idx}>
             <_Thread thread={thread}/>
           </div>

@@ -267,6 +267,7 @@ test('ON_LOGOUT should logout current user', () => {
 
 test('ON_SUBMIT_THREAD should create a thread then threadTitle and threadContent turned to empty strings', () => {
   const initState = reducer({
+    id: '001',
     currentUser: {username:'user'},
     threads: [],
     threadTitle: 'title',
@@ -274,7 +275,7 @@ test('ON_SUBMIT_THREAD should create a thread then threadTitle and threadContent
   })
 
   const state = reducer(initState, {type: ON_SUBMIT_THREAD,
-    value:{id:'001',date:'2020-02-02'}})
+    value:'2020-02-02'})
   expect(state).toStrictEqual({
     ...state,
     threads:[{
@@ -316,7 +317,7 @@ test('ON_SUBMIT_THREAD should update the selected thread and then set id to null
     threadContent: 'New content'
   })
 
-  const state = reducer(initState, {type: ON_SUBMIT_THREAD, value: {date: "2022-02-02", id: "213"}})
+  const state = reducer(initState, {type: ON_SUBMIT_THREAD, value: "2022-02-02"})
 
   expect(state).toStrictEqual({
     ...state,

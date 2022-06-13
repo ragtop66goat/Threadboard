@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {UserList} from "./UserList";
 import userEvent from "@testing-library/user-event";
-import {ON_SET_SELECTED_USER} from "../../modules/threads";
+import {ON_LOGOUT, ON_SET_SELECTED_USER} from "../../modules/threads";
 
 test('should render a div and button for each user', () => {
   const _useSelector = (fn) => fn(
@@ -65,4 +65,19 @@ test('should render an element with currentUser and with "Online:"', () => {
 
   expect(screen.getByText('Online:')).toBeInTheDocument()
   expect(screen.getByText('Trunks')).toBeInTheDocument()
+})
+
+test('should dispatch ON_LOGOUT when "Logout" button clicked', () => {
+  const _useSelector = (fn) => fn({currentUser: {username: "Trunks"},
+    userList:[]})
+  const dispatch = jest.fn()
+
+  render(<UserList _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
+
+  const button = screen.getByText("Logout")
+  userEvent.click(button)
+
+  expect(dispatch).toHaveBeenCalledWith({
+    type: ON_LOGOUT
+  })
 })

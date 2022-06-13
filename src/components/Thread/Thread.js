@@ -7,8 +7,10 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
   const dispatch = _useDispatch()
   const currentUser = _useSelector((state) => state.currentUser.username)
   const postList = _useSelector((state) => state.postList)
+  // returns only the posts for this thread
   const foundPosts = postList.filter((post) => post.threadId === thread.id)
 
+  // delete and edit buttons rendered only if currentUser is owner of thread
   if(thread.owner === currentUser)
   return <div className={"card"}>
     <div className={"card-header d-flex justify-content-between"}>
@@ -21,10 +23,10 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
     </div>
 
     <div className={"card-footer"}>
-      <div className={"d-flex justify-content-evenly"}>
-        <button className={"btn-sm btn-info"} onClick={()=> dispatch({type: ON_EDIT_THREAD, value: thread.id})}>Edit</button>
-        <button className={"btn-success btn-sm"} onClick={()=> dispatch({type: ON_SET_ADD_POST, value: thread.id})}>Post</button>
-        <button className={"btn-danger btn-sm"} onClick={()=> dispatch({type: ON_DELETE_THREAD, value: thread.id})}>Delete</button>
+      <div className={"d-flex justify-content-end"}>
+        <button className={"m-1 btn-success btn-sm"} onClick={()=> dispatch({type: ON_SET_ADD_POST, value: thread.id})}>Post</button>
+        <button className={"m-1 btn-sm btn-info"} onClick={()=> dispatch({type: ON_EDIT_THREAD, value: thread.id})}>Edit</button>
+        <button className={"m-1 btn-danger btn-sm"} onClick={()=> dispatch({type: ON_DELETE_THREAD, value: thread.id})}>Delete</button>
       </div>
       <div>
         {
@@ -39,6 +41,7 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
 
   </div>
 
+  // returns thread with Post button if current use not the owner of the thread
   return <div className={"card"}>
     <div className={"card-header d-flex justify-content-between"}>
       <div>{thread.owner}</div>
@@ -50,8 +53,8 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
     </div>
 
     <div className={"card-footer"}>
-      <div className={"d-flex justify-content-evenly"}>
-        <button className={"btn-success btn-sm"} onClick={()=> dispatch({type: ON_SET_ADD_POST, value: thread.id})}>Post</button>
+      <div className={"d-flex justify-content-end"}>
+        <button className={"m-1 btn-success btn-sm"} onClick={()=> dispatch({type: ON_SET_ADD_POST, value: thread.id})}>Post</button>
       </div>
       <div>
         {

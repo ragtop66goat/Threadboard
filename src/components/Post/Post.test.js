@@ -6,6 +6,7 @@ import {ON_DELETE_POST, ON_EDIT_POST} from "../../modules/threads";
 test('should render post with "Edit and "Delete" buttons', () => {
   const _useSelector = ((fn) => fn({currentUser: {username: "Zorro"}}))
   const dispatch = ()=>{}
+  // currentUser is the owner of the post
   const post  = {
     owner: "Zorro",
     id: '3',
@@ -28,6 +29,7 @@ test('should render post with only post content', () => {
     owner: "Zorro",
     id: '3',
     content: "this",
+    date: "Sat Oct 27 1979"
   }
 
   render(<Post post={post} _useSelector={_useSelector} _useDispatch={dispatch}/>)
@@ -36,6 +38,9 @@ test('should render post with only post content', () => {
   const editBtn = screen.queryByText("Edit")
 
   expect(screen.getByText("this")).toBeInTheDocument()
+  expect(screen.getByText("Zorro")).toBeInTheDocument()
+  expect(screen.getByText("Sat Oct 27 1979")).toBeInTheDocument()
+  // these are not in the document for non-owner of post
   expect(deleteBtn).not.toBeInTheDocument()
   expect(editBtn).not.toBeInTheDocument()
 

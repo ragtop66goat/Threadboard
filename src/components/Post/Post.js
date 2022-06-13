@@ -7,13 +7,27 @@ export function Post({post, _useSelector = useSelector, _useDispatch = useDispat
   const dispatch = _useDispatch()
 
   if (post.owner === currentUser)
+    // Delete and Edit buttons render if curretnUser is the owner
     return (<>
+        <div className={"d-flex"}>
+          <h5 style={{marginRight: "0.5rem"}}>{post.owner}</h5>
+          <p>{post.date}</p>
+        </div>
         <h6 key={post.id}>{post.content}</h6>
-        <button onClick={()=>dispatch({type: ON_DELETE_POST, value: post.id})}>Delete</button>
-        <button onClick={()=>dispatch({type: ON_EDIT_POST, value: post.id})}>Edit</button>
+        <div>
+          <button className={"btn-sm m-1 btn-danger"} onClick={()=>dispatch({type: ON_DELETE_POST, value: post.id})}>Delete</button>
+          <button className={"btn-sm m-1 btn-info"} onClick={()=>dispatch({type: ON_EDIT_POST, value: post.id})}>Edit</button>
+        </div>
       </>
     )
-  return <h6 key={post.id}>{post.content}</h6>
+  //if curretnUser not the owner of the post only the post renders
+  return<>
+    <div className={"d-flex"}>
+      <h5 style={{marginRight:"0.5rem"}}>{post.owner}</h5>
+      <p>{post.date}</p>
+    </div>
+    <h6 key={post.id}>{post.content}</h6>
+  </>
 
 
 }

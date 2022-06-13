@@ -1,5 +1,4 @@
 import {useDispatch, useSelector} from "react-redux";
-import {Button} from "react-bootstrap";
 import {ON_LOGOUT, ON_SET_SELECTED_USER} from "../../modules/threads";
 
 export function UserList({_useDispatch = useDispatch, _useSelector = useSelector}) {
