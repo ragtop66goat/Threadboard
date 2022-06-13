@@ -59,6 +59,7 @@ export function reducer(state = initState, action) {
         userList: [
           ...state.userList,
           {
+            id: state.id,
             username: state.usernameIn,
             password: state.passwordIn,
           }
@@ -82,7 +83,7 @@ export function reducer(state = initState, action) {
       if (registeredUser)
         return {
           ...state,
-          currentUser: {username: state.usernameIn},
+          currentUser: matchedUser,
           usernameIn: '',
           passwordIn: ''
         }

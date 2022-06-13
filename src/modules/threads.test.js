@@ -173,6 +173,7 @@ test('should register a new user', ()=> {
   const initState = reducer({
     usernameIn: "user",
     passwordIn: "pass",
+    id: "4",
     userList: []
     }
   )
@@ -180,7 +181,7 @@ test('should register a new user', ()=> {
   expect(state).toStrictEqual({
     ...state,
     currentUser:{username:'user'},
-    userList:[{username:'user',password:'pass'}],
+    userList:[{id: "4", username:'user',password:'pass'}],
     usernameIn: '',
     passwordIn: ''
   })
@@ -208,14 +209,14 @@ test('ON_LOGIN should login user and set currentUser state to that user', () => 
   const initState = reducer({
     usernameIn: "user",
     passwordIn: "pass",
-    userList:[{username:'user',password:'pass'}],
+    userList:[{id: "7", username:'user',password:'pass'}],
   })
 
   const state = reducer(initState, {type:ON_LOGIN})
 
   expect(state).toStrictEqual({
     ...state,
-    currentUser: {username:'user'},
+    currentUser: {id: "7", username:'user', password: 'pass'},
     usernameIn: '',
     passwordIn: ''
   })
