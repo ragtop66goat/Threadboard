@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_SET_SELECTED_USER} from "../../modules/threads";
 
 test('should render an element with "Private Message", "User1" and placeHolder "How you doin?"', () => {
-  const _useSelector = (fn) => fn({selectedUser: "User1"})
+  const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
   const dispatch = () => {}
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={dispatch}/>)
@@ -15,7 +15,7 @@ test('should render an element with "Private Message", "User1" and placeHolder "
 })
 
 test('should render a "Send" and "Cancel button', () => {
-  const _useSelector = () => {}
+  const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
   const dispatch = () => {}
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={dispatch}/>)
@@ -25,7 +25,7 @@ test('should render a "Send" and "Cancel button', () => {
 })
 
 test('should dispatch ON_SET_PRIV_MESSAGE with "Z"', () => {
-  const _useSelector = () => {}
+  const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
   const dispatch = jest.fn()
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
@@ -43,7 +43,7 @@ test('should dispatch ON_SET_PRIV_MESSAGE with "Z"', () => {
 test('should dispatch ON_SEND_MESSAGE when "Send" is clicked', () => {
   jest.useFakeTimers()
   jest.setSystemTime(new Date('October, 27, 1979'))
-  const _useSelector = () => {}
+  const _useSelector = (fn) => fn({selectedUser:{id: "1", username: "User1"}})
   const dispatch = jest.fn()
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={() => dispatch}/>)
@@ -60,7 +60,7 @@ test('should dispatch ON_SEND_MESSAGE when "Send" is clicked', () => {
 })
 
 test('should dispatch ON_SET_SELECTED_USER with null when "Cancel is pressed', () => {
-  const _useSelector = () => {}
+  const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
   const dispatch = jest.fn()
 
   render(<MessageInput _useSelector={_useSelector} _useDispatch={() => dispatch}/>)

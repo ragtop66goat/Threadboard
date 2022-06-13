@@ -370,7 +370,7 @@ test('ON_EDIT_THREAD should update selectedThread, threadTitle, threadContent, a
 
 test('ON_SEND_MESSAGE should create a message with date, owner, recipient, and message', () => {
   const initState = reducer({
-    selectedUser: "user2",
+    selectedUser: {username:"user2", id: "2"},
     currentUser: "user1",
     privMessage: 'test',
     messageList: []
@@ -383,7 +383,7 @@ test('ON_SEND_MESSAGE should create a message with date, owner, recipient, and m
     messageList: [
       {
         date: "2022-02-02",
-        recipient: "user2",
+        recipient: "2",
         owner: "user1",
         message: "test"
       }

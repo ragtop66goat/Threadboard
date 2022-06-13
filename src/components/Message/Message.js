@@ -5,7 +5,7 @@ export function Message({message}) {
   return<div>
     <Card className={"p-2"} style={{maxWidth: "20rem", minWidth: "15rem"}}>
       <div className={"card-header d-flex justify-content-between"}>
-        <h5>{message.owner.username}</h5>
+        <h5>{message.owner}</h5>
         <small>{message.date}</small>
       </div>
       <div>

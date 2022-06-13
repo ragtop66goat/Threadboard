@@ -22,7 +22,7 @@ export function MessageInput({_useSelector = useSelector, _useDispatch = useDisp
     <h1>Private Message</h1>
     <div className={"card shadow p-3 mb-5 bg-white rounded"}>
       <div className={"card-header"}>
-        <h4>To: {selectedUser}</h4>
+        <h4>To: {selectedUser.username}</h4>
       </div>
 
     <div className={"card-body"}>

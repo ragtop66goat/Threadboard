@@ -1,16 +1,16 @@
 import {render, screen} from "@testing-library/react";
 import {MessageList} from './MessageList'
 
-test('should onlu render messages for currentUser/owner', () => {
+test('should onlu render messages for currentUser/recipient', () => {
   const _useSelector = (fn) => fn(
     {
       messageList:
         [
-          {owner: "user1", recipient: "user2"},
-          {owner: "user1", recipient: "user2"},
-          {owner: "user2", recipient: "user1"},
+          {owner: "user1", recipient: "2"},
+          {owner: "user1", recipient: "2"},
+          {owner: "user2", recipient: "1"},
         ],
-      currentUser: {username: "user2"}
+      currentUser: {id: "2", username: "user2"}
     }
   )
 

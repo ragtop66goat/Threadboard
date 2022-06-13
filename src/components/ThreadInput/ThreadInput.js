@@ -45,7 +45,7 @@ export function ThreadInput(props) {
 
 return <>
   <div>
-    <h1>Threadboard</h1>
+    <h1 className={"text-center bg-dark bg-opacity-75 text-white border rounded p-2"}>Threadboard</h1>
   </div>
   <div className={`d-flex flex-column shadow p-3 mb-5 bg-${setBG} rounded p-2`}>
     <h4>{setHeader}</h4>

@@ -64,7 +64,7 @@ export function reducer(state = initState, action) {
             password: state.passwordIn,
           }
         ],
-        currentUser: {username: state.usernameIn},
+        currentUser: {id: state.id, username: state.usernameIn},
         usernameIn: '',
         passwordIn: '',
         id: null
@@ -155,9 +155,9 @@ export function reducer(state = initState, action) {
           ...state.messageList,
           {
             date: action.value,
-            recipient: state.selectedUser,
+            recipient: state.selectedUser.id,
             message: state.privMessage,
-            owner: state.currentUser
+            owner: state.currentUser.username
           }
         ],
         selectedUser: null,

@@ -52,7 +52,7 @@ test('should dispatch ON_SET_SELECTED_USER with corresponding user when Message 
 
   expect(dispatch).toHaveBeenCalledWith({
     type: ON_SET_SELECTED_USER,
-    value: "user2"
+    value: {username: "user2", id:"2"}
   })
 })
 
@@ -68,7 +68,7 @@ test('should render an element with currentUser and with "Online:"', () => {
 })
 
 test('should dispatch ON_LOGOUT when "Logout" button clicked', () => {
-  const _useSelector = (fn) => fn({currentUser: {username: "Trunks"},
+  const _useSelector = (fn) => fn({currentUser: {id: "2", username: "Trunks"},
     userList:[]})
   const dispatch = jest.fn()
 
