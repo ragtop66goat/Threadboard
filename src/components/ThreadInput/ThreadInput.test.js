@@ -78,6 +78,8 @@ test('should dispatch ON_SET_THREAD_CONTENT when user types in content field', (
 })
 
 test('should dispatch ON_SUBMIT_THREAD and ON_SET_ID when "Submit" button is clicked', () => {
+  jest.useFakeTimers()
+  jest.setSystemTime(new Date('Oct 27 1979'))
   const _useSelector = ((fn) => fn({
     threadTitle: 'this',
     threadContent: 'that',
@@ -93,7 +95,7 @@ test('should dispatch ON_SUBMIT_THREAD and ON_SET_ID when "Submit" button is cli
 
   expect(dispatch).toHaveBeenLastCalledWith({
     type: ON_SUBMIT_THREAD,
-    value: new Date().toISOString().substring(0, 10)
+    value: "Sat Oct 27 1979"
   })
 
   expect(dispatch).toHaveBeenCalledWith({
@@ -104,6 +106,8 @@ test('should dispatch ON_SUBMIT_THREAD and ON_SET_ID when "Submit" button is cli
 })
 
 test('should dispatch ON_SUBMIT_THREAD and ON_SET_ID with the id in state when "Submit Edit" button is clicked', () => {
+  jest.useFakeTimers()
+  jest.setSystemTime(new Date('Oct 27 1979'))
   const _useSelector = ((fn) => fn({
     threadTitle: 'one',
     threadContent: 'two',
@@ -119,7 +123,7 @@ test('should dispatch ON_SUBMIT_THREAD and ON_SET_ID with the id in state when "
 
   expect(dispatch).toHaveBeenLastCalledWith({
     type: ON_SUBMIT_THREAD,
-    value: new Date().toISOString().substring(0, 10)
+    value: "Sat Oct 27 1979"
   })
 
   expect(dispatch).toHaveBeenCalledWith({

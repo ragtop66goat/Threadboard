@@ -32,7 +32,7 @@ export function ThreadInput(props) {
       id = threadId
     }
     dispatch({type: ON_SET_ID, value: id})
-    const date = new Date().toISOString().substring(0, 10)
+    const date = new Date().toString().substring(0, 15)
     dispatch({type: ON_SUBMIT_THREAD, value: date})
   }
 
