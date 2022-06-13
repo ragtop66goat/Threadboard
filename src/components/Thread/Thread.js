@@ -31,7 +31,7 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
       <div>
         {
           foundPosts.map((post, idx) => {
-            return <div key={idx}>
+            return <div key={idx} className={"mt-2"}>
               <_Post post={post}/>
             </div>
           })

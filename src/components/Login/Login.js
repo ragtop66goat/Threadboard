@@ -32,7 +32,7 @@ export function Login({_useSelector = useSelector, _useDispatch = useDispatch, _
     <div className={"d-flex flex-column"}>
       <h1>Welcome to Threadboard</h1>
       <input onChange={onUsernameChange} value={usernameIn} className={'mt-4'} type={'text'} placeholder={'Username'}/>
-      <input onChange={onPasswordChange} value={passwordIn} className={'mt-3'} type={'text'} placeholder={'Password'}/>
+      <input onChange={onPasswordChange} value={passwordIn} className={'mt-3'} type={'password'} placeholder={'Password'}/>
       {/*dispatches ON_LOGIN. the updated username and password are taken from redux*/}
       <Button onClick={() => dispatch({type: ON_LOGIN})} className={'mt-4'} >Login</Button>
       <Button onClick={onCreateAccount} className={'mt-4'} >Create Account</Button>
