@@ -1,6 +1,6 @@
 import {useSelector, useDispatch} from "react-redux";
-import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_SET_SELECTED_USER} from "../../modules/threads";
-import {Button} from "react-bootstrap";
+import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_CANCEL} from "../../modules/threads";
+
 
 export function MessageInput({_useSelector = useSelector, _useDispatch = useDispatch}) {
 
@@ -29,8 +29,8 @@ export function MessageInput({_useSelector = useSelector, _useDispatch = useDisp
       <input type={"text"} onChange={onMessageChange} value={privMessage} placeholder={'How you doin?'}/>
     </div>
     <div className={"d-flex justify-content-evenly"}>
-      <Button onClick={sendMessage}>Send</Button>
-      <Button onClick={() => dispatch({type: ON_SET_SELECTED_USER, value: null})}>Cancel</Button>
+      <button className={"btn-success btn-sm m-2"} onClick={sendMessage}>Send</button>
+      <button className={"btn-danger btn-sm m-2"} onClick={() => dispatch({type: ON_CANCEL})}>Cancel</button>
     </div>
   </div>
   </div>

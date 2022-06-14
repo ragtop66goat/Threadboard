@@ -108,6 +108,7 @@ test('should render Thread with Post"', () => {
 
 // --------- dispatch tests ------------------
 test('should dispatch ON_EDIT_THREAD when "Edit" button clicked', () => {
+  window.scrollTo = jest.fn()
   const _useSelector = ((fn) => fn({
     currentUser: {username: "User1"},
     postList: []
@@ -133,6 +134,7 @@ test('should dispatch ON_EDIT_THREAD when "Edit" button clicked', () => {
     type: ON_EDIT_THREAD,
     value: "98"
   })
+
 })
 
 test('should dispatch ON_DELETE_THREAD when "Edit" button clicked', () => {

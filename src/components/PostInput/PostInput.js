@@ -1,7 +1,7 @@
 import {useSelector, useDispatch} from "react-redux";
 import {v4 as uuidv4} from "uuid";
 import {Card} from "react-bootstrap";
-import {ON_SUBMIT_POST, ON_SET_POST_CONTENT} from "../../modules/threads";
+import {ON_SUBMIT_POST, ON_SET_POST_CONTENT, ON_CANCEL} from "../../modules/threads";
 
 export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDispatch = useDispatch}) {
 
@@ -39,7 +39,8 @@ export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDis
       </div>
       <div className={"card-footer"}>
         <input onChange={postContentChange} value={postContent}/>
-        <button className={"btn-success btn-sm"} onClick={onSubmitPost}>Post</button>
+        <button className={"btn-success btn-sm m-2"} onClick={onSubmitPost}>Post</button>
+        <button className={"btn-danger btn-sm"} onClick={()=>dispatch({type: ON_CANCEL})}>Cancel</button>
       </div>
     </Card>
   </div>

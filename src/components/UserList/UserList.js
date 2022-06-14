@@ -12,7 +12,7 @@ export function UserList({_useDispatch = useDispatch, _useSelector = useSelector
       <h4 className={"text-white m-2"}>{currentUser.username}</h4>
       <button className={"btn-sm rounded-pill"} style={{padding: "0.25rem", fontSize: "0.75rem"}} onClick={() => dispatch({type: ON_LOGOUT})}>Logout</button>
     </div>
-    <h3 className={"text-success mt-4"} style={{textShadow: "0.5px 0.5px #fff"}}>Online: </h3>
+    <h3 className={"text-white mt-4"} style={{textShadow: "0.5px 0.5px #40ff00"}}>Online: </h3>
     {
       userList.map((user, idx) => {
         return <div className={"mt-4"} key={idx}>

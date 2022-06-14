@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {MessageInput} from "./MessageInput";
 import userEvent from "@testing-library/user-event";
-import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_SET_SELECTED_USER} from "../../modules/threads";
+import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_CANCEL} from "../../modules/threads";
 
 test('should render an element with "Private Message", "User1" and placeHolder "How you doin?"', () => {
   const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
@@ -59,7 +59,7 @@ test('should dispatch ON_SEND_MESSAGE when "Send" is clicked', () => {
 
 })
 
-test('should dispatch ON_SET_SELECTED_USER with null when "Cancel is pressed', () => {
+test('should dispatch ON_CANCEL when "Cancel is pressed', () => {
   const _useSelector = (fn) => fn({selectedUser:{username: "User1"}})
   const dispatch = jest.fn()
 
@@ -69,7 +69,6 @@ test('should dispatch ON_SET_SELECTED_USER with null when "Cancel is pressed', (
   userEvent.click(button)
 
   expect(dispatch).toHaveBeenCalledWith({
-    type: ON_SET_SELECTED_USER,
-    value: null
+    type: ON_CANCEL
   })
 })

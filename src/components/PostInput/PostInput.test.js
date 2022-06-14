@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {PostInput} from "./PostInput";
 import userEvent from "@testing-library/user-event";
-import {ON_SET_POST_CONTENT, ON_SUBMIT_POST} from "../../modules/threads";
+import {ON_CANCEL, ON_SET_POST_CONTENT, ON_SUBMIT_POST} from "../../modules/threads";
 
 
 test('should render an element with Title, postContent, and Content of the thread to post to', () => {
@@ -9,9 +9,10 @@ test('should render an element with Title, postContent, and Content of the threa
     {
       postToId: "1",
       postContent: "postContent",
-      threads:[{id:"1", title:"title",content:"content"}]
+      threads: [{id: "1", title: "title", content: "content"}]
     }))
-  const dispatch = () => {}
+  const dispatch = () => {
+  }
 
   render(<PostInput _useSelector={_useSelector} _useDispatch={dispatch}/>)
 
@@ -21,14 +22,15 @@ test('should render an element with Title, postContent, and Content of the threa
 
 })
 
-test('should render an input and "Post" button', () => {
+test('should render an input, "Post", and "Cancel" button', () => {
   const _useSelector = ((fn) => fn(
     {
       postToId: "1",
       postContent: "postContent",
-      threads:[{id:"1", title:"title",content:"content"}]
+      threads: [{id: "1", title: "title", content: "content"}]
     }))
-  const dispatch = () => {}
+  const dispatch = () => {
+  }
 
   render(<PostInput _useSelector={_useSelector} _useDispatch={dispatch}/>)
 
@@ -42,7 +44,7 @@ test('should dispatch ON_SET_POST_CONTENT with input change', () => {
     {
       postToId: "1",
       postContent: "p",
-      threads:[{id:"1", title:"title",content:"content"}]
+      threads: [{id: "1", title: "title", content: "content"}]
     }))
   const dispatch = jest.fn()
 
@@ -68,7 +70,7 @@ test('should dispatch ON_SUBMIT_POST when "Post" button clicked', () => {
       threads: [{id: "15", title: "title", content: "content"}]
     }))
   const dispatch = jest.fn()
-  const _uuidv4 = ()=> "13"
+  const _uuidv4 = () => "13"
 
   render(<PostInput _useSelector={_useSelector} _useDispatch={() => dispatch} _uuidv4={_uuidv4}/>)
 
@@ -77,6 +79,28 @@ test('should dispatch ON_SUBMIT_POST when "Post" button clicked', () => {
 
   expect(dispatch).toHaveBeenCalledWith({
     type: ON_SUBMIT_POST, value: {date: "Sat Oct 27 1979", id: "13"}
+  })
+
+
+})
+
+test('should dispatch ON_CANCEL when "Cancel" button clicked', () => {
+  const _useSelector = ((fn) => fn(
+    {
+      postToId: "15",
+      postContent: "posted",
+      threads: [{id: "15", title: "title", content: "content"}]
+    }))
+  const dispatch = jest.fn()
+  const _uuidv4 = () => {}
+
+  render(<PostInput _useSelector={_useSelector} _useDispatch={() => dispatch} _uuidv4={_uuidv4}/>)
+
+  const button = screen.getByText("Cancel")
+  userEvent.click(button)
+
+  expect(dispatch).toHaveBeenCalledWith({
+    type: ON_CANCEL
   })
 
 

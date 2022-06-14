@@ -4,7 +4,7 @@ import {Message} from "./Message";
 test('should display the date, from, and message', () => {
   const message = {
     date: '2022-02-02',
-    owner: {username: 'user1'},
+    owner: 'user1',
     message: 'test'
   }
 

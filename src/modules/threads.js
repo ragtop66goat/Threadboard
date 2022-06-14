@@ -9,6 +9,7 @@ export const ON_SUBMIT_POST = 'threads/ON_ADD_POST'
 export const ON_EDIT_POST = 'threads/ON_EDIT_POST'
 export const ON_DELETE_POST = 'threads/ON_DELETE_POST'
 export const ON_SET_SELECTED_USER = 'threads/ON_SET_SELECTED_USER'
+export const ON_CANCEL = 'threads/ON_CANCEL'
 export const ON_SET_ID = 'threads/ON_SET_ID'
 export const ON_SET_USERNAME_IN = 'threads/ON_SET_USERNAME_IN'
 export const ON_SET_PASSWORD_IN = 'threads/ON_SET_PASSWORD_IN'
@@ -96,6 +97,16 @@ export function reducer(state = initState, action) {
         ...state,
         loginError: 'Username and password do not match'
       }
+    case ON_CANCEL:
+      return {
+        ...state,
+        postContent: '',
+        postToId: null,
+        id: null,
+        addPost: false,
+        selectedUser: null,
+        privMessage: ''
+      }
     case ON_SET_PASSWORD_IN:
       return {
         ...state,
@@ -149,6 +160,12 @@ export function reducer(state = initState, action) {
         loginError: null,
       }
     case ON_SEND_MESSAGE:
+      if(state.privMessage.trim().length < 1)
+        return {
+        ...state,
+          selectedUser: null,
+          privMessage: '',
+        }
       return {
         ...state,
         messageList: [
@@ -165,7 +182,14 @@ export function reducer(state = initState, action) {
       }
 
     case ON_SUBMIT_THREAD:
+      // checks thread.id against id in state, which is either new or ON_EDIT_THREAD value
       const updateThread = state.threads.find(thread => thread.id === state.id)
+      if(state.threadContent.trim().length < 1 || state.threadTitle.trim().length < 1)
+        return {
+        ...state,
+          id: null
+        }
+      //action for new thread
       if (!updateThread)
         return {
           ...state,
@@ -183,6 +207,7 @@ export function reducer(state = initState, action) {
           threadContent: '',
           id: null
         }
+      // action for update thread
       return {
         ...state,
         threads: state.threads.map((thread) => {{
@@ -203,6 +228,7 @@ export function reducer(state = initState, action) {
 
       }
     case ON_EDIT_THREAD:
+      //finds the thread in threads to populate its data for updating
       const toEdit = state.threads.find(thread => thread.id === action.value)
       return {
         ...state,
@@ -216,11 +242,23 @@ export function reducer(state = initState, action) {
       return {
         ...state,
         threads:
-          state.threads.filter(obj => obj.id !== action.value)
+          state.threads.filter(obj => obj.id !== action.value),
+        postList:
+          state.postList.filter(obj => obj.threadId !== action.value)
 
       }
     case ON_SUBMIT_POST:
+      // checks post.id against the id in state which is either new or ON_EDIT_POST value
       const updatePost = state.postList.find(post => post.id === state.id)
+      if(state.postContent.trim().length < 1)
+        return {
+        ...state,
+          postContent: '',
+          addPost: false,
+          id: null,
+          postToId: null,
+        }
+      // new post action
       if(!updatePost)
       return {
         ...state,
@@ -240,6 +278,7 @@ export function reducer(state = initState, action) {
         postToId: null
 
       }
+      //update post action
       return {
         ...state,
         postList:
@@ -261,6 +300,7 @@ export function reducer(state = initState, action) {
         postToId: null
       }
     case ON_EDIT_POST:
+      // finds the post in postList and populates its data in post input
       const postEdit = state.postList.find(post => post.id === action.value)
       return {
         ...state,

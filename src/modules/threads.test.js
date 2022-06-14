@@ -13,7 +13,7 @@ import {
   ON_SET_PRIV_MESSAGE,
   ON_SET_THREAD_TITLE,
   ON_SET_THREAD_CONTENT,
-  ON_EDIT_THREAD, ON_SUBMIT_POST, ON_SET_ADD_POST, ON_DELETE_POST
+  ON_EDIT_THREAD, ON_SUBMIT_POST, ON_SET_ADD_POST, ON_DELETE_POST, ON_CANCEL
 } from "./threads";
 
 
@@ -43,10 +43,10 @@ test('should init to correct state', () => {
 // ---------ON_SET type tests ------------------
 
 test('ON_SET_USERNAME_IN should set the usernameIn to "user"', () => {
-  const initSate = reducer()
-  const state = reducer(initSate, {type:ON_SET_USERNAME_IN, value: "user"})
+  const initState = reducer()
+  const state = reducer(initState, {type: ON_SET_USERNAME_IN, value: "user"})
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     usernameIn: "user"
   })
 })
@@ -55,7 +55,7 @@ test('ON_SET_PASSWORD_IN should set passwordIn to "pass"', () => {
   const initState = reducer()
   const state = reducer(initState, {type: ON_SET_PASSWORD_IN, value: "pass"})
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     passwordIn: "pass"
   })
 })
@@ -64,7 +64,7 @@ test('ON_SET_ID should set id to "3"', () => {
   const initState = reducer()
   const state = reducer(initState, {type: ON_SET_ID, value: "3"})
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     id: "3"
   })
 })
@@ -75,7 +75,7 @@ test('ON_SET_SELECTED_USER should set selected user and privMessage to empty', (
   const state = reducer(initState, {type: ON_SET_SELECTED_USER, value: "Crocodile"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     selectedUser: "Crocodile",
     privMessage: ''
   })
@@ -87,7 +87,7 @@ test('ON_SET_PRIV_MESSAGE should set privMessage to "test"', () => {
   const state = reducer(initState, {type: ON_SET_PRIV_MESSAGE, value: "test"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     privMessage: "test"
   })
 })
@@ -98,7 +98,7 @@ test('ON_SET_THREAD_TITLE should set threadTitle to "Title"', () => {
   const state = reducer(initState, {type: ON_SET_THREAD_TITLE, value: "Title"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     threadTitle: 'Title'
   })
 })
@@ -109,7 +109,7 @@ test('ON_SET_THREAD_CONTENT should set threadContent to "Content"', () => {
   const state = reducer(initState, {type: ON_SET_THREAD_CONTENT, value: "Content"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     threadContent: 'Content'
   })
 })
@@ -120,7 +120,7 @@ test('ON_SET_POST_CONTENT should set the postContent to "P"', () => {
   const state = reducer(initState, {type: ON_SET_THREAD_CONTENT, value: "P"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     threadContent: "P"
   })
 })
@@ -131,7 +131,7 @@ test('ON_SET_ADD_POST should set post to true and postToId to "23"', () => {
   const state = reducer(initState, {type: ON_SET_ADD_POST, value: "23"})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     addPost: true,
     postToId: "23"
   })
@@ -141,67 +141,85 @@ test('ON_SET_ADD_POST should set post to true and postToId to "23"', () => {
 
 test('ON_REG should set loginError to "Please fill in all fields"', () => {
   const initState = reducer({
-    usernameIn:' ',
-    passwordIn: ' '
+    usernameIn: ' ',
+    passwordIn: ' ',
   })
 
   const state = reducer(initState, {type: ON_REG})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     loginError: "Please fill in all fields",
     passwordIn: ' ',
     usernameIn: ' '
   })
 })
 
-test('ON_REG should set loginError to "User already exists" when registering an existing user',() => {
+test('ON_REG should set loginError to "User already exists" when registering an existing user; set id to null', () => {
   const initState = reducer({
     usernameIn: "user",
     passwordIn: "pass",
-    userList: [{username:'user',password:'pass'}],
+    userList: [{username: 'user', password: 'pass'}],
   })
-  const state = reducer(initState, {type:ON_REG})
+  const state = reducer(initState, {type: ON_REG})
   expect(state).toStrictEqual({
-    ...state,
-    loginError:'User already exists. Please login.'
+    ...initState,
+    loginError: 'User already exists. Please login.',
+    id: null
   })
 
 })
 
-test('should register a new user', ()=> {
+test('should register a new user', () => {
   const initState = reducer({
-    usernameIn: "user",
-    passwordIn: "pass",
-    id: "4",
-    userList: []
+      usernameIn: "user",
+      passwordIn: "pass",
+      id: "4",
+      userList: []
     }
   )
   const state = reducer(initState, {type: ON_REG})
   expect(state).toStrictEqual({
-    ...state,
-    currentUser:{username:'user'},
-    userList:[{id: "4", username:'user',password:'pass'}],
+    ...initState,
+    currentUser: {id: "4", username: 'user'},
+    userList: [{id: "4", username: 'user', password: 'pass'}],
     usernameIn: '',
-    passwordIn: ''
+    passwordIn: '',
+    id: null
   })
 })
 
 //  ----- ON_LOGIN tests -------------
 
-test('ON_LOGIN should set loginError to "Please fill in all fields"', () => {
+test('ON_LOGIN should set loginError to "Please fill in all fields" when usernameIn blank/only white spaces', () => {
   const initState = reducer({
-    usernameIn:' ',
+    usernameIn: ' ',
+    passwordIn: 'this'
+  })
+
+  const state = reducer(initState, {type: ON_LOGIN})
+
+  expect(state).toStrictEqual({
+    ...initState,
+    loginError: "Please fill in all fields",
+    passwordIn: 'this',
+    usernameIn: ' '
+  })
+})
+
+test('ON_LOGIN should set loginError to "Please fill in all fields" when passwordIn blank/only white spaces', () => {
+  const initState = reducer({
+    usernameIn: 'this',
     passwordIn: ' '
   })
 
   const state = reducer(initState, {type: ON_LOGIN})
 
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     loginError: "Please fill in all fields",
     passwordIn: ' ',
-    usernameIn: ' '
+    usernameIn: 'this'
   })
 })
 
@@ -209,14 +227,14 @@ test('ON_LOGIN should login user and set currentUser state to that user', () => 
   const initState = reducer({
     usernameIn: "user",
     passwordIn: "pass",
-    userList:[{id: "7", username:'user',password:'pass'}],
+    userList: [{id: "7", username: 'user', password: 'pass'}],
   })
 
-  const state = reducer(initState, {type:ON_LOGIN})
+  const state = reducer(initState, {type: ON_LOGIN})
 
   expect(state).toStrictEqual({
-    ...state,
-    currentUser: {id: "7", username:'user', password: 'pass'},
+    ...initState,
+    currentUser: {id: "7", username: 'user', password: 'pass'},
     usernameIn: '',
     passwordIn: ''
   })
@@ -229,14 +247,14 @@ test('ON_LOGIN should set login error to "Username not found. Create account?"',
     passwordIn: "pass",
     userList: []
   })
-  const state = reducer(initState, {type:ON_LOGIN})
+  const state = reducer(initState, {type: ON_LOGIN})
   expect(state).toStrictEqual({
-    ...state,
-    loginError:'Username not found. Create account?'
+    ...initState,
+    loginError: 'Username not found. Create account?'
   })
 })
 
-test('ON_LOGIN should set login error to "Username and password do not match',()=>{
+test('ON_LOGIN should set login error to "Username and password do not match', () => {
   const initState = reducer({
     usernameIn: 'user',
     passwordIn: 'oass',
@@ -245,7 +263,7 @@ test('ON_LOGIN should set login error to "Username and password do not match',()
 
   const state = reducer(initState, {type: ON_LOGIN})
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     loginError: 'Username and password do not match'
   })
 })
@@ -256,9 +274,9 @@ test('ON_LOGOUT should logout current user', () => {
     loginError: null
   })
 
-  const state = reducer(initState, {type:ON_LOGOUT})
+  const state = reducer(initState, {type: ON_LOGOUT})
   expect(state).toStrictEqual({
-    ...state,
+    ...initState,
     currentUser: null
   })
 })
@@ -266,31 +284,99 @@ test('ON_LOGOUT should logout current user', () => {
 
 //---------- EVENT tests --------------
 
+test('ON_CANCEL should reset post and message state variables', () => {
+  const initState = reducer({
+    postContent: 'This',
+    postToId: '45',
+    id: '45',
+    addPost: true,
+    selectedUser: '234',
+    privMessage: 'that'
+
+  })
+
+  const state = reducer(initState, {type: ON_CANCEL})
+
+  expect(state).toStrictEqual({
+    postContent: '',
+    postToId: null,
+    id: null,
+    addPost: false,
+    selectedUser: null,
+    privMessage: ''
+  })
+})
+
 test('ON_SUBMIT_THREAD should create a thread then threadTitle and threadContent turned to empty strings', () => {
   const initState = reducer({
     id: '001',
-    currentUser: {username:'user'},
+    currentUser: {username: 'user'},
     threads: [],
     threadTitle: 'title',
     threadContent: 'content'
   })
 
-  const state = reducer(initState, {type: ON_SUBMIT_THREAD,
-    value:'2020-02-02'})
+  const state = reducer(initState, {
+    type: ON_SUBMIT_THREAD,
+    value: '2020-02-02'
+  })
   expect(state).toStrictEqual({
-    ...state,
-    threads:[{
-      id:'001',
+    ...initState,
+    threads: [{
+      id: '001',
       owner: 'user',
-      date:'2020-02-02',
-      title:'title',
-      content:'content',
+      date: '2020-02-02',
+      title: 'title',
+      content: 'content',
     }],
     threadTitle: '',
-    threadContent: ''
+    threadContent: '',
+    id: null,
+
   })
 
 
+})
+
+test('ON_SUBMIT_THREAD should not submit when threadTitle empty/only whitespaces', () => {
+  const initState = reducer({
+    id: '001',
+    currentUser: {username: 'user'},
+    threads: [],
+    threadTitle: ' ',
+    threadContent: 'content'
+  })
+
+  const state = reducer(initState, {
+    type: ON_SUBMIT_THREAD,
+    value: '2020-02-02'
+  })
+  expect(state).toStrictEqual({
+    ...state,
+    threadTitle: ' ',
+    threadContent: 'content'
+  })
+})
+
+test('ON_SUBMIT_THREAD should not submit when threadContent empty/only whitespaces', () => {
+  const initState = reducer({
+    id: '001',
+    currentUser: {username: 'user'},
+    threads: [],
+    threadTitle: 'Title',
+    threadContent: ' '
+  })
+
+  const state = reducer(initState, {
+    type: ON_SUBMIT_THREAD,
+    value: '2020-02-02'
+  })
+  expect(state).toStrictEqual({
+    ...state,
+    threadTitle: 'Title',
+    threadContent: ' ',
+    id: null
+  })
 })
 
 test('ON_SUBMIT_THREAD should update the selected thread and then set id to null, threadTitle and threadContent to empty strings', () => {
@@ -323,7 +409,7 @@ test('ON_SUBMIT_THREAD should update the selected thread and then set id to null
   expect(state).toStrictEqual({
     ...state,
     id: null,
-      currentUser: {username: 'user1'},
+    currentUser: {username: 'user1'},
     threads: [
       {
         id: '213',
@@ -341,13 +427,13 @@ test('ON_SUBMIT_THREAD should update the selected thread and then set id to null
       },
 
     ],
-      threadTitle: '',
+    threadTitle: '',
     threadContent: ''
   })
 })
 
 test('ON_EDIT_THREAD should update selectedThread, threadTitle, threadContent, and id values in state', () => {
-  const  initState = reducer({
+  const initState = reducer({
     threads: [
       {
         id: '32',
@@ -370,8 +456,8 @@ test('ON_EDIT_THREAD should update selectedThread, threadTitle, threadContent, a
 
 test('ON_SEND_MESSAGE should create a message with date, owner, recipient, and message', () => {
   const initState = reducer({
-    selectedUser: {username:"user2", id: "2"},
-    currentUser: "user1",
+    selectedUser: {username: "user2", id: "2"},
+    currentUser: {username: "user1", id: "7"},
     privMessage: 'test',
     messageList: []
   })
@@ -393,36 +479,89 @@ test('ON_SEND_MESSAGE should create a message with date, owner, recipient, and m
   })
 })
 
-test('ON_DELETE_THREAD should delete a thread', () => {
+test('ON_SEND_MESSAGE should not create a message when privMessage blank/only whitespaces', () => {
   const initState = reducer({
-    currentUser: {username:'user'},
-    threads:[{
-      id:'001',
-      owner: 'user',
-      date:'2020-02-02',
-      title:'title',
-      content:'content',
-    },
-      {
-        id:'002',
-        owner: 'user',
-        date:'2020-02-02',
-        title:'title2',
-        content:'content2',
-      }]
+    selectedUser: {username: "user2", id: "2"},
+    currentUser: {username: "user1", id: "7"},
+    privMessage: ' ',
+    messageList: []
   })
 
-  const state = reducer(initState, {type:ON_DELETE_THREAD, value:'002'})
+  const state = reducer(initState, {type: ON_SEND_MESSAGE, value: "2022-02-02"})
 
   expect(state).toStrictEqual({
     ...state,
-    threads:[{
-      id:'001',
+    selectedUser: null,
+    privMessage: ""
+  })
+})
+
+test('ON_DELETE_THREAD should delete a thread', () => {
+  const initState = reducer({
+    currentUser: {username: 'user'},
+    threads: [{
+      id: '001',
       owner: 'user',
-      date:'2020-02-02',
-      title:'title',
-      content:'content',
+      date: '2020-02-02',
+      title: 'title',
+      content: 'content',
+    },
+      {
+        id: '002',
+        owner: 'user',
+        date: '2020-02-02',
+        title: 'title2',
+        content: 'content2',
+      }],
+    postList:[]
+  })
+
+  const state = reducer(initState, {type: ON_DELETE_THREAD, value: '002'})
+
+  expect(state).toStrictEqual({
+    ...state,
+    threads: [{
+      id: '001',
+      owner: 'user',
+      date: '2020-02-02',
+      title: 'title',
+      content: 'content',
     }]
+  })
+})
+
+test('ON_DELETE_THREAD should delete all posts for that thread', () => {
+  const initState = reducer({
+    currentUser: {username: 'user'},
+    threads: [{
+      id: '001',
+      owner: 'user',
+      date: '2020-02-02',
+      title: 'title',
+      content: 'content',
+    }],
+    postList: [
+      {
+        id: '1',
+        threadId: '001'
+      },
+      {
+        id: '2',
+        threadId: '001'
+      },
+      {
+        id: '3',
+        threadId:'002'
+      }
+    ]
+  })
+
+  const state = reducer(initState, {type: ON_DELETE_THREAD, value: '001'})
+
+  expect(state).toStrictEqual({
+    ...state,
+    threads: [],
+    postList: [{id: '3', threadId: '002'}]
   })
 })
 
@@ -431,10 +570,10 @@ test('ON_Submit_POST should add a post to postList', () => {
     currentUser: {username: "Kai"},
     postContent: "P",
     postToId: "007",
-    postList:[]
+    postList: []
   })
 
-  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date:"2020-02-02", id: "9000"}})
+  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date: "2020-02-02", id: "9000"}})
 
   expect(state).toStrictEqual({
     ...state,
@@ -447,6 +586,25 @@ test('ON_Submit_POST should add a post to postList', () => {
         content: "P"
       }
     ],
+    postContent: '',
+    addPost: false,
+    id: null,
+    postToId: null
+  })
+})
+
+test('ON_Submit_POST should not add a post when postContent is empty/only whitespaces', () => {
+  const initState = reducer({
+    currentUser: {username: "Kai"},
+    postContent: " ",
+    postToId: "007",
+    postList: []
+  })
+
+  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date: "2020-02-02", id: "9000"}})
+
+  expect(state).toStrictEqual({
+    ...state,
     postContent: '',
     addPost: false,
     id: null,
@@ -478,10 +636,10 @@ test('ON_SUBMIT_POST should update an existing post', () => {
 
   })
 
-  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date: "2022-02-02", id:"13"}})
+  const state = reducer(initState, {type: ON_SUBMIT_POST, value: {date: "2022-02-02", id: "13"}})
 
   expect(state).toStrictEqual({
-    postList:[
+    postList: [
       {
         id: "13",
         threadId: "34",

@@ -10,6 +10,14 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
   // returns only the posts for this thread
   const foundPosts = postList.filter((post) => post.threadId === thread.id)
 
+  function handleEdit() {
+    dispatch({type: ON_EDIT_THREAD, value: thread.id})
+    window.scrollTo({
+      top: 10,
+      behavior: 'smooth'
+    })
+  }
+
   // delete and edit buttons rendered only if currentUser is owner of thread
   if(thread.owner === currentUser)
   return <div className={"card"}>
@@ -25,7 +33,7 @@ export function Thread({thread, _useDispatch = useDispatch, _useSelector = useSe
     <div className={"card-footer"}>
       <div className={"d-flex justify-content-end"}>
         <button className={"m-1 btn-success btn-sm"} onClick={()=> dispatch({type: ON_SET_ADD_POST, value: thread.id})}>Post</button>
-        <button className={"m-1 btn-sm btn-info"} onClick={()=> dispatch({type: ON_EDIT_THREAD, value: thread.id})}>Edit</button>
+        <button className={"m-1 btn-sm btn-info"} onClick={handleEdit}>Edit</button>
         <button className={"m-1 btn-danger btn-sm"} onClick={()=> dispatch({type: ON_DELETE_THREAD, value: thread.id})}>Delete</button>
       </div>
       <div>
