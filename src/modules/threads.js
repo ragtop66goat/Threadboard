@@ -278,6 +278,7 @@ export function reducer(state = initState, action) {
             id: action.value.id,
             threadId: state.postToId,
             owner: state.currentUser.id,
+            ownerName: state.currentUser.username,
             date: action.value.date,
             content: state.postContent
           }

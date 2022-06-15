@@ -10,7 +10,7 @@ export function Post({post, _useSelector = useSelector, _useDispatch = useDispat
     // Delete and Edit buttons render if currentUser is the owner
     return (<>
         <div className={"d-flex"}>
-          <h5 style={{marginRight: "0.5rem"}}>{post.owner}</h5>
+          <h5 style={{marginRight: "0.5rem"}}>{post.ownerName}</h5>
           <p>{post.date}</p>
         </div>
         <h6 key={post.id}>{post.content}</h6>
@@ -23,7 +23,7 @@ export function Post({post, _useSelector = useSelector, _useDispatch = useDispat
   //if curretnUser not the owner of the post only the post renders
   return<>
     <div className={"d-flex"}>
-      <h5 style={{marginRight:"0.5rem"}}>{post.owner}</h5>
+      <h5 style={{marginRight:"0.5rem"}}>{post.ownerName}</h5>
       <p>{post.date}</p>
     </div>
     <h6 key={post.id}>{post.content}</h6>
