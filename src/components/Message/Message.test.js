@@ -1,7 +1,7 @@
 import {render, screen} from "@testing-library/react";
 import {Message} from "./Message";
 
-test('should display the date, from, and message', () => {
+test('should display the date, owner/sender, and message', () => {
   const message = {
     date: '2022-02-02',
     owner: 'user1',

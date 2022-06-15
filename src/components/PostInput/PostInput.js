@@ -8,6 +8,7 @@ export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDis
   const threads = _useSelector((state) => state.threads)
   // brought in to link post to parent thread. Set with Post btn in Post
   const postToId = _useSelector((state) => state.postToId)
+  // used to populate correct thread data in PostInput fields
   const foundThread = threads.find((thread) => thread.id === postToId)
   const postContent = _useSelector((state) => state.postContent)
   // brought in to decide if post is being edited

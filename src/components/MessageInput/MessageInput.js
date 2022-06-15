@@ -4,7 +4,7 @@ import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_CANCEL} from "../../modules/thr
 
 export function MessageInput({_useSelector = useSelector, _useDispatch = useDispatch}) {
 
-  // selectedUser set in userList with "Message" btn
+  // selectedUser(id/username) set in userList with "Message" btn
   const selectedUser = _useSelector((state) => state.selectedUser)
   const privMessage = _useSelector((state) => state.privMessage)
   const dispatch = _useDispatch()

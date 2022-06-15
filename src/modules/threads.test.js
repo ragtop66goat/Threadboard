@@ -139,9 +139,24 @@ test('ON_SET_ADD_POST should set post to true and postToId to "23"', () => {
 
 //--------- ON_REG tests --------------------
 
-test('ON_REG should set loginError to "Please fill in all fields"', () => {
+test('ON_REG should set loginError to "Please fill in all fields" when username empty/only white spaces', () => {
   const initState = reducer({
     usernameIn: ' ',
+    passwordIn: 'pass',
+  })
+
+  const state = reducer(initState, {type: ON_REG})
+
+  expect(state).toStrictEqual({
+    ...initState,
+    loginError: "Please fill in all fields",
+    passwordIn: 'pass',
+    usernameIn: ' '
+  })
+})
+test('ON_REG should set loginError to "Please fill in all fields" when password is blank/all white spaces', () => {
+  const initState = reducer({
+    usernameIn: 'user',
     passwordIn: ' ',
   })
 
@@ -151,7 +166,7 @@ test('ON_REG should set loginError to "Please fill in all fields"', () => {
     ...initState,
     loginError: "Please fill in all fields",
     passwordIn: ' ',
-    usernameIn: ' '
+    usernameIn: 'user'
   })
 })
 
@@ -567,7 +582,7 @@ test('ON_DELETE_THREAD should delete all posts for that thread', () => {
 
 test('ON_Submit_POST should add a post to postList', () => {
   const initState = reducer({
-    currentUser: {username: "Kai"},
+    currentUser: {id: "43", username: "Kai"},
     postContent: "P",
     postToId: "007",
     postList: []
@@ -581,7 +596,7 @@ test('ON_Submit_POST should add a post to postList', () => {
       {
         id: "9000",
         threadId: "007",
-        owner: "Kai",
+        owner: "43",
         date: "2020-02-02",
         content: "P"
       }
@@ -595,7 +610,7 @@ test('ON_Submit_POST should add a post to postList', () => {
 
 test('ON_Submit_POST should not add a post when postContent is empty/only whitespaces', () => {
   const initState = reducer({
-    currentUser: {username: "Kai"},
+    currentUser: {id: "43", username: "Kai"},
     postContent: " ",
     postToId: "007",
     postList: []
@@ -615,20 +630,20 @@ test('ON_Submit_POST should not add a post when postContent is empty/only whites
 test('ON_SUBMIT_POST should update an existing post', () => {
   const initState = reducer({
     id: "13",
-    currentUser: {username: "Bulma"},
+    currentUser: {id: "21", username: "Bulma"},
     postContent: "Old reply updated",
     postList: [
       {
         id: "13",
         threadId: "34",
-        owner: "Bulma",
+        owner: "21",
         date: "2020-02-02",
         content: "Old reply"
       },
       {
         id: "17",
         threadId: "34",
-        owner: "Endeavor",
+        owner: "65",
         date: "2020-02-02",
         content: "Endeavor reply"
       }
@@ -643,14 +658,14 @@ test('ON_SUBMIT_POST should update an existing post', () => {
       {
         id: "13",
         threadId: "34",
-        owner: "Bulma",
+        owner: "21",
         date: "2022-02-02",
         content: "Old reply updated"
       },
       {
         id: "17",
         threadId: "34",
-        owner: "Endeavor",
+        owner: "65",
         date: "2020-02-02",
         content: "Endeavor reply"
       }
@@ -659,7 +674,7 @@ test('ON_SUBMIT_POST should update an existing post', () => {
     addPost: false,
     postContent: '',
     postToId: null,
-    currentUser: {username: "Bulma"}
+    currentUser: {id: "21", username: "Bulma"}
   })
 })
 

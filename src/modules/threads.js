@@ -44,17 +44,21 @@ export function reducer(state = initState, action) {
   switch (action?.type) {
     case ON_REG:
       if(state.usernameIn.trim().length < 1 || state.passwordIn.trim().length < 1)
+        // inputs can't be blank
         return {
         ...state,
           loginError: "Please fill in all fields"
         }
+      // userList to see if username already exists
       const foundUser = state.userList.find(user => user.username === state.usernameIn)
+      // return if username exists
       if (foundUser)
         return {
           ...state,
           loginError: 'User already exists. Please login.',
           id: null
         }
+      // register new account action
       return {
         ...state,
         userList: [
@@ -73,14 +77,17 @@ export function reducer(state = initState, action) {
 
     case ON_LOGIN:
       if(state.usernameIn.trim().length < 1 || state.passwordIn.trim().length < 1)
+        // inputs can't be blank
         return {
           ...state,
           loginError: "Please fill in all fields"
         }
+      // checks to validate username and password exist and match
       const registeredUser = state.userList.find(
         user => user.username === state.usernameIn &&
           user.password === state.passwordIn)
       const matchedUser = state.userList.find(user => user.username === state.usernameIn)
+      // if name and password match set currentUser
       if (registeredUser)
         return {
           ...state,
@@ -88,15 +95,18 @@ export function reducer(state = initState, action) {
           usernameIn: '',
           passwordIn: ''
         }
+      // if username not found
       if (!matchedUser)
         return {
           ...state,
           loginError: 'Username not found. Create account?'
         }
+      // if username exists but password doesn't match
       return {
         ...state,
         loginError: 'Username and password do not match'
       }
+      // global cancel button
     case ON_CANCEL:
       return {
         ...state,
@@ -267,7 +277,7 @@ export function reducer(state = initState, action) {
           {
             id: action.value.id,
             threadId: state.postToId,
-            owner: state.currentUser.username,
+            owner: state.currentUser.id,
             date: action.value.date,
             content: state.postContent
           }
@@ -287,7 +297,7 @@ export function reducer(state = initState, action) {
               return {
                 id: state.id,
                 threadId: post.threadId,
-                owner: state.currentUser.username,
+                owner: state.currentUser.id,
                 date: action.value.date,
                 content: state.postContent
               }

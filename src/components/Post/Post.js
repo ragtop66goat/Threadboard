@@ -3,11 +3,11 @@ import {ON_DELETE_POST, ON_EDIT_POST} from "../../modules/threads";
 
 export function Post({post, _useSelector = useSelector, _useDispatch = useDispatch}) {
 
-  const currentUser = _useSelector((state) => state.currentUser.username)
+  const currentUser = _useSelector((state) => state.currentUser.id)
   const dispatch = _useDispatch()
 
   if (post.owner === currentUser)
-    // Delete and Edit buttons render if curretnUser is the owner
+    // Delete and Edit buttons render if currentUser is the owner
     return (<>
         <div className={"d-flex"}>
           <h5 style={{marginRight: "0.5rem"}}>{post.owner}</h5>

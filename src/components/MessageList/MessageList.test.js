@@ -19,7 +19,7 @@ test('should onlu render messages for currentUser/recipient', () => {
   }
 
   render(<MessageList _Message={_Message} _useSelector={_useSelector}/>)
-
+  // only 2 of teh three should be rendered
   expect(screen.getAllByText("user1")).toHaveLength(2)
 
 

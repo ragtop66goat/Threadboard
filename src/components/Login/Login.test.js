@@ -95,7 +95,7 @@ test('should dispatch ON_REG and ON_SET_ID when "Create Account" is pressed', ()
 
 })
 
-test('should dispatch ON_SET_USERNAME_IN with value "A" ', () => {
+test('should dispatch ON_SET_USERNAME_IN with value "A"', () => {
   const _useSelector = () => {
   }
   const dispatch = jest.fn()
@@ -111,7 +111,7 @@ test('should dispatch ON_SET_USERNAME_IN with value "A" ', () => {
   })
 })
 
-test('should dispatch ON_SET_PASSWORD_IN with value "P" ', () => {
+test('should dispatch ON_SET_PASSWORD_IN with value "P"', () => {
   const _useSelector = () => {
   }
   const dispatch = jest.fn()

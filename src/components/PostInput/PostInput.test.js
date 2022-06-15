@@ -18,11 +18,11 @@ test('should render an element with Title, postContent, and Content of the threa
 
   expect(screen.getByText("Post to: title")).toBeInTheDocument()
   expect(screen.getByText("content")).toBeInTheDocument()
-  expect(screen.getByDisplayValue("postContent")).toBeInTheDocument()
+  expect(screen.getByDisplayValue("postContent").tagName).toBe("INPUT")
 
 })
 
-test('should render an input, "Post", and "Cancel" button', () => {
+test('should render a "Post", and "Cancel" button', () => {
   const _useSelector = ((fn) => fn(
     {
       postToId: "1",
@@ -35,7 +35,7 @@ test('should render an input, "Post", and "Cancel" button', () => {
   render(<PostInput _useSelector={_useSelector} _useDispatch={dispatch}/>)
 
   expect(screen.getByText("Post").tagName).toBe("BUTTON")
-  expect(screen.getByDisplayValue("postContent").tagName).toBe("INPUT")
+  expect(screen.getByText("Cancel").tagName).toBe("BUTTON")
 
 })
 

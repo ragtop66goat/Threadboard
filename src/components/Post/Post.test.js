@@ -4,11 +4,11 @@ import userEvent from "@testing-library/user-event";
 import {ON_DELETE_POST, ON_EDIT_POST} from "../../modules/threads";
 
 test('should render post with "Edit and "Delete" buttons', () => {
-  const _useSelector = ((fn) => fn({currentUser: {username: "Zorro"}}))
+  const _useSelector = ((fn) => fn({currentUser: {id: "79",username: "Zorro"}}))
   const dispatch = ()=>{}
   // currentUser is the owner of the post
   const post  = {
-    owner: "Zorro",
+    owner: "79",
     id: '3',
     content: "this",
   }
@@ -47,10 +47,10 @@ test('should render post with only post content', () => {
 })
 
 test('should dispatch ON_DELETE_POST when "Delete" is clicked', () => {
-  const _useSelector = ((fn) => fn({currentUser: {username: "Zorro"}}))
+  const _useSelector = ((fn) => fn({currentUser: {id: "045",username: "Zorro"}}))
   const dispatch = jest.fn()
   const post  = {
-    owner: "Zorro",
+    owner: "045",
     id: '3',
     content: "this",
   }
@@ -66,10 +66,10 @@ test('should dispatch ON_DELETE_POST when "Delete" is clicked', () => {
 })
 
 test('should dispatch ON_EDIT_POST when "Delete" is clicked', () => {
-  const _useSelector = ((fn) => fn({currentUser: {username: "Bobby"}}))
+  const _useSelector = ((fn) => fn({currentUser: {id: "745", username: "Bobby"}}))
   const dispatch = jest.fn()
   const post  = {
-    owner: "Bobby",
+    owner: "745",
     id: '23',
     content: "this",
   }
