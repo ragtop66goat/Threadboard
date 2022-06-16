@@ -23,6 +23,7 @@ export const ON_SET_ADD_POST = 'threads/ON_SET_ADD_POST'
 const initState = {
   currentUser: null,
   selectedUser: null,
+  // this can be removed
   selectedThread: null,
   addPost: false,
   postToId: null,
