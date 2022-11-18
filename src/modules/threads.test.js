@@ -597,6 +597,7 @@ test('ON_Submit_POST should add a post to postList', () => {
         id: "9000",
         threadId: "007",
         owner: "43",
+        "ownerName": "Kai",
         date: "2020-02-02",
         content: "P"
       }

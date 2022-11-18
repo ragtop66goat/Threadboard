@@ -20,7 +20,7 @@ export function Post({post, _useSelector = useSelector, _useDispatch = useDispat
         </div>
       </>
     )
-  //if curretnUser not the owner of the post only the post renders
+  //if currentUser not the owner of the post only the post renders
   return<>
     <div className={"d-flex"}>
       <h5 style={{marginRight:"0.5rem"}}>{post.ownerName}</h5>

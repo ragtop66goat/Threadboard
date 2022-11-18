@@ -14,6 +14,7 @@ export function MessageInput({_useSelector = useSelector, _useDispatch = useDisp
     dispatch({type: ON_SEND_MESSAGE, value: date})
   }
 
+  //todo: implement useRef here for input
   function onMessageChange(e) {
     dispatch({type: ON_SET_PRIV_MESSAGE, value: e.target.value})
   }

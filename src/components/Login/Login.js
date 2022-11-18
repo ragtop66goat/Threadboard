@@ -10,6 +10,7 @@ export function Login({_useSelector = useSelector, _useDispatch = useDispatch, _
   const loginError = _useSelector((state) => state.loginError)
 
 // updates username value in redux
+  //todo: implement useRef for username and password input
   function onUsernameChange(e){
     dispatch({type: ON_SET_USERNAME_IN, value: e.target.value})
   }

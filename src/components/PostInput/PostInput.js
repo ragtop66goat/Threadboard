@@ -15,13 +15,14 @@ export function PostInput({_uuidv4 = uuidv4, _useSelector = useSelector, _useDis
   const postId = _useSelector((state) => state.id)
   const dispatch = _useDispatch()
 
+  //todo: implement useRef for post input
   function postContentChange(e) {
     dispatch({type: ON_SET_POST_CONTENT, value: e.target.value})
   }
 
   function onSubmitPost() {
     let id;
-    // creates new Id if new post
+    // creates new Id if new post. This is so post editing can utilize this component
     if(!postId){
       id = _uuidv4()
     } else {

@@ -15,6 +15,7 @@ export function ThreadInput(props) {
   const threadId = _useSelector((state)=> state.id)
   const dispatch = _useDispatch()
 
+  //todo: implement useRef for title and content input
   function onTitleChange(e) {
     dispatch({type: ON_SET_THREAD_TITLE, value: e.target.value})
   }
