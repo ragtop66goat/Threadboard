@@ -33,10 +33,9 @@ export function Login({_useSelector = useSelector, _useDispatch = useDispatch, _
       <h1>Welcome to Threadboard</h1>
       <input ref={usernameRef} className={'mt-4'} type={'text'} placeholder={'Username'}/>
       <input ref={passwordRef} className={'mt-3'} type={'password'} placeholder={'Password'}/>
-      {/*dispatches ON_LOGIN. the updated username and password are taken from redux*/}
       <Button onClick={onLogin} className={'mt-4'} >Login</Button>
       <Button onClick={onCreateAccount} className={'mt-4'} >Create Account</Button>
-      {/*loginError is from redux*/}
+      {/*loginError is from redux, displays of it exists*/}
       <div aria-label={"error"} className={'w-75 mt-2 text-danger'}>{loginError}</div>
     </div>
 
