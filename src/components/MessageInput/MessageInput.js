@@ -1,22 +1,20 @@
 import {useSelector, useDispatch} from "react-redux";
 import {ON_SEND_MESSAGE, ON_SET_PRIV_MESSAGE, ON_CANCEL} from "../../modules/threads";
+import {useRef} from "react";
 
 
 export function MessageInput({_useSelector = useSelector, _useDispatch = useDispatch}) {
 
   // selectedUser(id/username) set in userList with "Message" btn
-  const selectedUser = _useSelector((state) => state.selectedUser)
-  const privMessage = _useSelector((state) => state.privMessage)
-  const dispatch = _useDispatch()
+  const selectedUser = _useSelector((state) => state.selectedUser);
+  const privMessage = _useSelector((state) => state.privMessage);
+  const dispatch = _useDispatch();
+  const messageRef = useRef();
 
   function sendMessage() {
-    const date = new Date().toString().substring(0, 15)
-    dispatch({type: ON_SEND_MESSAGE, value: date})
-  }
-
-  //todo: implement useRef here for input
-  function onMessageChange(e) {
-    dispatch({type: ON_SET_PRIV_MESSAGE, value: e.target.value})
+    const date = new Date().toString().substring(0, 15);
+    dispatch({type: ON_SET_PRIV_MESSAGE, value: messageRef.current.value})
+    dispatch({type: ON_SEND_MESSAGE, value: date});
   }
 
   return <div className={"d-flex justify-content-center flex-column"}>
@@ -26,13 +24,13 @@ export function MessageInput({_useSelector = useSelector, _useDispatch = useDisp
         <h4>To: {selectedUser.username}</h4>
       </div>
 
-    <div className={"card-body"}>
-      <input type={"text"} onChange={onMessageChange} value={privMessage} placeholder={'How you doin?'}/>
+      <div className={"card-body"}>
+        <input ref={messageRef} type={"text"} placeholder={'How you doin?'}/>
+      </div>
+      <div className={"d-flex justify-content-evenly"}>
+        <button className={"btn-success btn-sm m-2"} onClick={sendMessage}>Send</button>
+        <button className={"btn-danger btn-sm m-2"} onClick={() => dispatch({type: ON_CANCEL})}>Cancel</button>
+      </div>
     </div>
-    <div className={"d-flex justify-content-evenly"}>
-      <button className={"btn-success btn-sm m-2"} onClick={sendMessage}>Send</button>
-      <button className={"btn-danger btn-sm m-2"} onClick={() => dispatch({type: ON_CANCEL})}>Cancel</button>
-    </div>
-  </div>
-  </div>
+  </div>;
 }
